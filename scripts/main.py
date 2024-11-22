@@ -1,9 +1,9 @@
 import pyxel
 from jogador import Player
-from paredes import parede
-class app:
+
+class App:
     def __init__(self):
-        pyxel.init(160, 120, title="O jogo",fps=160)
+        pyxel.init(160, 120, title="O jogo", fps=60)
         self.jogador = Player() 
         pyxel.run(self.update, self.draw)
 
@@ -13,4 +13,5 @@ class app:
     def draw(self):
         pyxel.cls(0)
         self.jogador.draw() 
-app()
+
+App()
