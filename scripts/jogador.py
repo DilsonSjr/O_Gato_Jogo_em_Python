@@ -16,8 +16,8 @@ class Player:
         self.quadro = 1
         self.direita = [0,0,0,16]
         self.esquerda = [0,0,0,16]
-        self.cima = [0,0,0,16]
-        self.baixo = [0,0,0,16]
+        #self.cima = [0,0,0,16]
+        #self.baixo = [0,0,0,16]
         self.tamanho = 16
 
     def update(self):
@@ -31,11 +31,11 @@ class Player:
             self.x += self.velocidade
             self.quadro = (self.quadro + 1) % 4
         if pyxel.btn(pyxel.KEY_W):
-            self.estado = 'cima'
+            #self.estado = 'cima'
             self.y -= self.velocidade
             self.quadro = (self.quadro + 1) % 4
         if pyxel.btn(pyxel.KEY_S):
-            self.estado = 'baixo'
+            #self.estado = 'baixo'
             self.y += self.velocidade
             self.quadro = (self.quadro + 1) % 4
 
@@ -53,8 +53,8 @@ class Player:
         if self.estado == 'direita':
             pyxel.blt(self.x, self.y, 0, self.direita[self.quadro], 16, self.tamanho,  self.tamanho, 0)
         elif self.estado == 'esquerda':
-            pyxel.blt(self.x, self.y, 0, self.esquerda[self.quadro], 16,  self.tamanho,  self.tamanho, 0)
-        elif self.estado == 'cima':
-            pyxel.blt(self.x, self.y, 0, self.cima[self.quadro], 16,  self.tamanho,  self.tamanho, 0)
-        elif self.estado == 'baixo':
-            pyxel.blt(self.x, self.y, 0, self.baixo[self.quadro], 16,  self.tamanho,  self.tamanho, 0)
+            pyxel.blt(self.x, self.y, 0, self.esquerda[self.quadro], 16,  -self.tamanho,  self.tamanho, 0)
+        #elif self.estado == 'cima':
+            #pyxel.blt(self.x, self.y, 0, self.cima[self.quadro], 16,  self.tamanho,  self.tamanho, 0)
+        #elif self.estado == 'baixo':
+            #pyxel.blt(self.x, self.y, 0, self.baixo[self.quadro], 16,  self.tamanho,  self.tamanho, 0)
