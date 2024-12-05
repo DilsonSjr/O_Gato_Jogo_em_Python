@@ -1,17 +1,30 @@
 import pyxel
-from jogador import Player
-from mundo import mundo
-class App:
+from jogador import Personagem
+
+fps = 6
+imagem_jogador = 'D:/Documents_SATA/Faculdade/Python/Jogo/assets/images/BARTOLOMEU.png'
+
+class Jogo:
+    # Classe principal do jogo
     def __init__(self):
-        pyxel.init(160, 120, title="O jogo", fps=60)
-        self.jogador = Player() 
+        # Inicializa a janela e carrega os recursos
+        pyxel.init(160, 120, fps=fps, title="Animações")  # Tela de 160x120, 10 FPS
+        pyxel.images[0].load(0, 0, imagem_jogador)  # Sprites com dimensões uniformes
+        
+        # Cria o personagem no jogo
+        self.jogador = Personagem(70, 50)
+
+        # Inicia o loop principal do jogo
         pyxel.run(self.update, self.draw)
-        self.mundo = mundo(pyxel.tilemap(0))
+
     def update(self):
-        self.jogador.update() 
+        # Atualiza o estado do jogo
+        self.jogador.mover()
 
     def draw(self):
-        pyxel.cls(0)
-        self.jogador.draw() 
+        # Desenha os elementos na tela
+        pyxel.cls(12)  # Limpa a tela com a cor de fundo
+        self.jogador.desenhar()
 
-App()
+# Inicializa o jogo
+Jogo()
