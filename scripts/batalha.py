@@ -8,7 +8,7 @@ class combate:
         self.ativo = True
         self.mensagem = ""
         self.tempo_mensagem = 0
-        self.fundo = "D:/Documents_SATA/Faculdade/Python/Jogo/assets/images/Fundo_combate.png"  # Adicione o caminho correto para a imagem de fundo
+        self.fundo = "assets\images\Fundo_combate.png"  # Adicione o caminho correto para a imagem de fundo
         pyxel.images[0].load(0, 0, self.fundo)
         pyxel.run(self.update, self.draw)
 

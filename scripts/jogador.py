@@ -2,8 +2,12 @@ import pyxel
 from batalha import combate
 class Personagem:
     # Classe para representar o jogador
+
+
     def __init__(self, x, y):
         # Inicializa o personagem
+        pyxel.images[0].load(0, 0, '../assets/images/BARTOLOMEU.png')  # Sprites com dimensões uniformes
+
         self.x = x
         self.y = y
         self.velocidade = 1
@@ -39,19 +43,18 @@ class Personagem:
         elif pyxel.btn(pyxel.KEY_S):  # Move para a baixo
             #self.direcao = "baixo"
             self.y += self.velocidade % 4
-
             # para testar o combate aperta Y (tecla para teste no futuro sera de outra forma para iniciar o combate)
-        if pyxel.btn(pyxel.KEY_Y):  # Move para a esquerda
+        elif pyxel.btn(pyxel.KEY_Y):  # Move para a esquerda
             combate()
-                    
+        elif pyxel.btn(pyxel.KEY_E):
+            self.estado = "interagir"
+ 
     def desenhar(self):
         if self.estado == "parado":
             # Determina o tamanho do sprite com base na direção
             if self.direcao == "direita":
                 self.tamanhoSprite = 16
             # elif self.direcao == "esquerda":
-            #     self.tamanhoSprite = -16  # Sprite espelhado para esquerda
-
             # Avança para o próximo quadro da animação
             self.frame += 16 
             if self.frame > 100:  # Reseta ao completar a animação
