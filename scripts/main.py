@@ -1,15 +1,15 @@
 import pyxel
 from jogador import Personagem
-
-fps = 6
+from batalha import combate
+fps = 60
 
 
 class Jogo:
     # Classe principal do jogo
     def __init__(self):
         # Inicializa a janela e carrega os recursos
-        pyxel.init(160, 120, fps=fps, title="Animações")  # Tela de 160x120, 10 FPS
-        
+        pyxel.init(192, 108, fps=fps, title="Jogo")  # Tela de 160x120, 10 FPS
+        # combate() #tirar de comentario para testar combate
         # Cria o personagem no jogo
         self.jogador = Personagem(70, 50)
 
@@ -23,6 +23,7 @@ class Jogo:
     def draw(self):
         # Desenha os elementos na tela
         pyxel.cls(12)  # Limpa a tela com a cor de fundo
+
         self.jogador.desenhar()
 
 # Inicializa o jogo

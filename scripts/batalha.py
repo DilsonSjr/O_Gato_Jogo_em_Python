@@ -1,8 +1,9 @@
 import pyxel
-
+from jogador import Personagem
 class combate:
 
     def __init__(self):
+        self.jogador = Personagem(70, 50)
         self.opcoes = ["Atacar", "Defender", "Itens", "Fugir"]
         self.opcao_selecionada = 0
         self.ativo = True
@@ -35,7 +36,11 @@ class combate:
             pyxel.text(10, 70 + i * 10, opcao, cor)
         if self.mensagem:
             pyxel.text(15, 20, self.mensagem, 10)
-
+        pyxel.rect(20, 10, self.jogador.vida,5 , 8) # desenha a barra de vida do
+        pyxel.text(10, 10, "{}".format(self.jogador.vida), 8) # desenha em numeros a vida
+        # voce morreu
+        if self.jogador.vida <= 0:
+            pyxel.text(50, 50, "Voce morreu", 8)
     def executar_acao(self):
         if self.opcao_selecionada == 0:
             self.atacar()
@@ -48,12 +53,17 @@ class combate:
 
     def atacar(self):
         # Implementar lógica de ataque
-        self.mensagem = "Voce atacou! mas errou :("
+        if self.jogador.dano == 6:
+            self.mensagem = "Voce atacou! e causou {} de dano NOSSA ISSO FOI CRITICO".format(self.jogador.dano)
+        if self.jogador.dano == 1:
+            self.mensagem = "Voce atacou! e causou {} de dano, Voce esqueceu de usar as unhas ne".format(self.jogador.dano)
+        else:
+            self.mensagem = "Voce atacou! e causou {} de dano".format(self.jogador.dano)
         self.tempo_mensagem = 30
 
     def defender(self):
         # Implementar lógica de defesa
-        self.mensagem = "Bloqueio! voce levou um dano ai"
+        self.mensagem = "Bloqueio! voce levou {} de dano".format(self.jogador.dano // 2)
         self.tempo_mensagem = 30
 
     def usar_itens(self):
