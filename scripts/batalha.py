@@ -9,7 +9,7 @@ class combate:
         self.ativo = True
         self.mensagem = ""
         self.tempo_mensagem = 0
-        self.fundo = "assets\images\Fundo_combate.png"  # Adicione o caminho correto para a imagem de fundo
+        self.fundo = "assets\images\Fundo_combate.png"  
         pyxel.images[0].load(0, 0, self.fundo)
         pyxel.run(self.update, self.draw)
 
@@ -23,11 +23,6 @@ class combate:
             self.opcao_selecionada = (self.opcao_selecionada + 1) % len(self.opcoes)
         elif pyxel.btnp(pyxel.KEY_SPACE):
             self.executar_acao()
-# para fazer as mensagens sumirem
-        if self.tempo_mensagem > 0:
-            self.tempo_mensagem -= 1
-            if self.tempo_mensagem == 0:
-                self.mensagem = ""
 
     def draw(self):
         pyxel.cls(1)

@@ -9,7 +9,8 @@ class Personagem:
 
     def __init__(self, x, y):
         # Inicializa o personagem
-        pyxel.images[0].load(0, 0, '../assets/images/BARTOLOMEU.png')  # Sprites com dimensões uniformes
+        pyxel.load('../assets/images/BARTOLOMEU.pyxres')  # Carrega a imagem do personagem
+        #pyxel.images[0].load(0, 0, '../assets/images/BARTOLOMEU.pyxres')  # Sprites com dimensões uniformes
         
         d6 = random.randint(1, 6)
 
