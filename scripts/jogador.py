@@ -1,91 +1,93 @@
 import pyxel
 import random
 
-
-
-
 class Personagem:
     
-
     def __init__(self, x, y):
-        # Inicializa o personagem
-        pyxel.load('../assets/images/BARTOLOMEU.pyxres')  # Carrega a imagem do personagem
-        #pyxel.images[0].load(0, 0, '../assets/images/BARTOLOMEU.pyxres')  # Sprites com dimensões uniformes
-        
         d6 = random.randint(1, 6)
 
         self.x = x
         self.y = y
         self.velocidade = 0.1
-        
+
         self.vida = d6 + 5
         self.dano = d6 
 
         self.largura = 16  # Dimensão fixa para largura
         self.altura = 16   # Dimensão fixa para altura
 
-        self.estado = "parado"  # Estado atual do personagem
-        self.direcao = "direita"  # Direção inicial
+        self.estado = 'parado'  # Estado atual do personagem
+        self.direcao = 'direita'  # Direção inicial
+        self.xTamanhoSprite = 16
+        self.yTamanhoSprite = 16
 
         self.frame = 0  # Controla o quadro atual da animação
-        self.posU = 0  # Coordenada X na imagem para desenhar o quadro correspondente
         self.contador_animacao = 50  # Contador para controlar a velocidade da animação
+
+    def atualizar_d6(self):
+        d6 = random.randint(1, 6)
+
+        self.dano = d6
 
     def mover(self):
 
         if pyxel.btn(pyxel.KEY_LSHIFT):  # Move para a esquerda
-            self.velocidade = 4
+            self.velocidade = 1.
         else:
-            self.velocidade = 2
+            self.velocidade = 1
 
         if pyxel.btn(pyxel.KEY_A):  # Move para a esquerda
-            self.direcao = "esquerda"
-            self.x -= self.velocidade % 4
-        elif pyxel.btn(pyxel.KEY_D):  # Move para a direita
-            self.direcao = "direita"
-            self.x += self.velocidade % 4
-        elif pyxel.btn(pyxel.KEY_W):  # Move para a cima
-            #self.direcao = "cima"
-            self.y -= self.velocidade % 4
-        elif pyxel.btn(pyxel.KEY_S):  # Move para a baixo
-            #self.direcao = "baixo"
-            self.y += self.velocidade % 4
-            
-        elif pyxel.btn(pyxel.KEY_E): #botao pra testar a vida e perder 1 de vida
-            self.vida = self.vida - 1 
+            self.direcao = 'esquerda'
+            self.estado = 'andando'
+            self.x -= self.velocidade
+            self.xTamanhoSprite =  - abs(self.xTamanhoSprite)
+        if pyxel.btn(pyxel.KEY_D):  # Move para a direita
+            self.direcao = 'direita'
+            self.estado = 'andando'
+            self.x += self.velocidade
+            self.xTamanhoSprite =  abs(self.xTamanhoSprite)
+        if pyxel.btn(pyxel.KEY_W):  # Move para a cima
+            self.direcao = 'cima'
+            self.estado = 'andando'
+            self.y -= self.velocidade
+        if pyxel.btn(pyxel.KEY_S):  # Move para a baixo
+            self.direcao = 'baixo'
+            self.estado = 'andando'
+            self.y += self.velocidade
 
+        # if pyxel.btnr(not(pyxel.btns())):
+        #     self.estado = 'parado'
+
+        if pyxel.btn(pyxel.KEY_E): #botao pra testar a vida e perder 1 de vida
+            self.vida = self.vida - 1 
+        
     def desenhar(self):
-        pyxel.rect(20, 10, self.vida,5 , 8) # desenha a barra de vida do
+        pyxel.rect(20, 10, self.vida, 5, 8)  #Desenha a barra de vida do jogador
         pyxel.text(10, 10, "{}".format(self.vida), 8)
-        # voce morreu
+
         if self.vida <= 0:
             pyxel.text(50, 50, "Voce morreu", 8)
-        
-        if self.estado == "parado":
-            # Determina o tamanho do sprite com base na direção
-            if self.direcao == "direita":
-                self.tamanhoSprite = 16
-            # Incrementa o contador de animação
-            # Atualiza o quadro da animação a cada 10 frames
-            if self.contador_animacao >= 10:
-                self.frame += 16
-                self.contador_animacao = 0
-            # elif self.direcao == "esquerda":
 
-            # Incrementa o contador de animação
+        if self.estado == "parado":
             self.contador_animacao += 1
-            
-            # Atualiza o quadro da animação a cada 10 frames
+
             if self.contador_animacao >= 10:
                 self.frame += 16
                 self.contador_animacao = 0
-            
-            if self.frame > 100:  # Reseta ao completar a animação
+
+            if self.frame > 48:
                 self.frame = 0
-                self.posU = 0
-            
-            # Desenha o quadro atual do personagem
-            if self.direcao == "direita":
-                pyxel.blt(self.x, self.y, 0, self.frame, 0, self.tamanhoSprite, self.tamanhoSprite, 0)
-            elif self.direcao == "esquerda":
-                pyxel.blt(self.x, self.y, 0, self.frame, 0, -self.tamanhoSprite, self.tamanhoSprite, 0)
+
+            pyxel.blt(self.x, self.y, 0, self.frame, 0, self.xTamanhoSprite, self.yTamanhoSprite, 0)
+
+        if self.estado == 'andando':
+            self.contador_animacao += 1
+
+            if self.contador_animacao >= 10:
+                self.frame += 16
+                self.contador_animacao = 0
+
+            if self.frame > 96:
+                self.frame = 0
+
+            pyxel.blt(self.x, self.y, 0, self.frame, 64, self.xTamanhoSprite, self.yTamanhoSprite, 0)

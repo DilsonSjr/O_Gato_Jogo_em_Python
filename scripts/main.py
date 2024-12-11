@@ -2,27 +2,35 @@ import pyxel
 from jogador import Personagem
 from batalha import combate
 from menu import menu
+from mundo import Mapa
+from inimigo import inimigo
 fps = 60
 
-
 class Jogo:
-    # Classe principal do jogo
-    def __init__(self):
-        # Inicializa a janela e carrega os recursos
-        pyxel.init(192, 108, fps=fps, title="Jogo")  # Tela de 160x120, 10 FPS
-        #menu()
-        self.jogador = Personagem(70, 50)
 
-        # Inicia o loop principal do jogo
+    def __init__(self):
+
+        pyxel.init(192, 108, fps=fps, title="Jogo")
+        pyxel.load('../assets/images/bartolomeu.pyxres')  
+
+        #combate()
+        self.jogador = Personagem(70, 50)
+        self.inimigo = inimigo(50,50, self.jogador)
+        
+        # Mapa(self.jogador).run()
+
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        # Atualiza o estado do jogo
+
         self.jogador.mover()
+        self.inimigo.detectarjogador()
 
     def draw(self):
-        # Desenha os elementos na tela
-        pyxel.cls(12)  # Limpa a tela com a cor de fundo
+        
+        pyxel.cls(12)
+        
+        self.inimigo.desenhar()
 
         self.jogador.desenhar()
 
