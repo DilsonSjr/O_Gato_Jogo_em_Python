@@ -13,10 +13,10 @@ class Jogo:
         pyxel.init(192, 108, fps=fps, title="Jogo")
         pyxel.load('../assets/images/bartolomeu.pyxres')  
 
-        #combate()
-        self.jogador = Personagem(70, 50)
-        self.inimigo = inimigo(50,50, self.jogador)
         
+        self.jogador = Personagem(70, 50)
+        self.inimigo = inimigo(20,20, self.jogador)
+        combate()
         # Mapa(self.jogador).run()
 
         pyxel.run(self.update, self.draw)

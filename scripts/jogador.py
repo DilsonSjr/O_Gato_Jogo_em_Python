@@ -2,7 +2,7 @@ import pyxel
 import random
 
 class Personagem:
-    
+
     def __init__(self, x, y):
         d6 = random.randint(1, 6)
 
@@ -60,7 +60,11 @@ class Personagem:
 
         if pyxel.btn(pyxel.KEY_E): #botao pra testar a vida e perder 1 de vida
             self.vida = self.vida - 1 
-        
+
+    def update(self):
+        self.jogador.mover()
+        pyxel.camera(self.jogador.x -70, self.jogador.y -50)
+
     def desenhar(self):
         pyxel.rect(20, 10, self.vida, 5, 8)  #Desenha a barra de vida do jogador
         pyxel.text(10, 10, "{}".format(self.vida), 8)
