@@ -48,3 +48,4 @@ class inimigo:
         
         #pyxel.rect(self.x, self.y, self.altura, self.altura, 2)
         pyxel.blt(self.x, self.y, 0,self.frame, 160, self.altura, self.largura, 0)
+        pyxel.blt(64, 64, 0,self.frame, 160, self.altura, self.largura, 0)

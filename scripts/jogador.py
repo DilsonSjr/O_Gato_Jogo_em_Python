@@ -32,7 +32,7 @@ class Personagem:
     def mover(self):
 
         if pyxel.btn(pyxel.KEY_LSHIFT):  # Move para a esquerda
-            self.velocidade = 1.
+            self.velocidade = 1.5
         else:
             self.velocidade = 1
 
@@ -63,14 +63,17 @@ class Personagem:
 
     def update(self):
         self.jogador.mover()
-        pyxel.camera(self.jogador.x -70, self.jogador.y -50)
 
     def desenhar(self):
-        pyxel.rect(20, 10, self.vida, 5, 8)  #Desenha a barra de vida do jogador
-        pyxel.text(10, 10, "{}".format(self.vida), 8)
+        pyxel.camera(self.x - pyxel.width // 2, self.y - pyxel.height // 2)
+        pyxel.rect(self.x -49,self.y - 49, self.vida, 5, 0)  
+        pyxel.rect(self.x -50,self.y - 50, self.vida, 5, 8)  #Desenha a barra de vida do jogador
+#Desenha a barra de vida do jogador
+        pyxel.text(self.x -59,self.y - 49, "{}".format(self.vida), 0)
+        pyxel.text(self.x -60,self.y - 50, "{}".format(self.vida), 8)
 
         if self.vida <= 0:
-            pyxel.text(50, 50, "Voce morreu", 8)
+            pyxel.text(self.x -15, self.y - 10, "Voce morreu", 8)
 
         if self.estado == "parado":
             self.contador_animacao += 1
