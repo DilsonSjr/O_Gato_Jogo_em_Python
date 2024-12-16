@@ -8,18 +8,16 @@ class combate:
 
 ############ INICIALIZAÇÃO DO COMBATE ############
     def __init__(self):
-
-        self.spriteinimigo = pyxel.load('../assets/images/bartolomeu.pyxres') 
+        self.jogador = Personagem(0,0)
+        self.inimigo = inimigo(0,0, self.jogador)
         self.turno = 0  # 0 para jogador, 1 para inimigo
         self.rodada = 0
         self.opcoes = ["Atacar", "Especial","itens","Fugir"]
         self.opcaoSelecionada = 0
         self.selecionarOpcao = 0
-        self.jogador = Personagem(0,0)
-        self.inimigo = inimigo(0,0, self.jogador)
+
 
 ############ ATRIBUTOS DO COMBATE ############
-
         self.jogador.vida = self.jogador.vida
         self.jogador.dano = self.jogador.dano
         self.inimigo.vida = self.inimigo.vida
@@ -42,9 +40,7 @@ class combate:
     "Suas chances sao tao boas quanto um rato\nno meio de uma colonia de gatos!",
     "Voce e corajoso, mas nao sera pario\npara minhas presas afiadas!",
     "Miau, miau... Hora de lutar ate\no ultimo pelo!"])
-
         self.tempoInicio = time.time()
-
         pyxel.run(self.update, self.draw)
 
 ############# AÇÕES DO COMBATE ############ mover para o jogador.py depois

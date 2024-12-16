@@ -1,12 +1,10 @@
 import pyxel
 import random
 from jogador import Personagem
-
 class inimigo:
 
     def __init__ (self, x, y,Personagem):
         self.jogador = Personagem
-
         d6 = random.randint(1,6)
         self.x = x
         self.y = y

@@ -1,40 +1,44 @@
 import pyxel
-import random
-
+import time
 class Personagem:
 
     def __init__(self, x, y):
-        d6 = random.randint(1, 6)
+        d6 = pyxel.rndi(1, 6)
 
-        self.x = x
-        self.y = y
-        self.velocidade = 0.1
+        self.x = x 
+        self.y = y 
+        self.velocidade = 1
 
         self.vida = d6 + 5
         self.dano = d6 
 
-        self.largura = 16  # Dimensão fixa para largura
-        self.altura = 16   # Dimensão fixa para altura
+        self.largura = 16  
+        self.altura = 16   
 
-        self.estado = 'parado'  # Estado atual do personagem
-        self.direcao = 'direita'  # Direção inicial
+        self.estado = 'parado'  
+        self.direcao = 'direita'  
         self.xTamanhoSprite = 16
         self.yTamanhoSprite = 16
 
-        self.frame = 0  # Controla o quadro atual da animação
-        self.contador_animacao = 50  # Contador para controlar a velocidade da animação
+        self.frame = 0
+        self.contador_animacao = 50  
 
     def atualizar_d6(self):
-        d6 = random.randint(1, 6)
+        d6 = pyxel.rndi(1, 6)
 
         self.dano = d6
-
+############ MOVIMENTO ############
     def mover(self):
 
-        if pyxel.btn(pyxel.KEY_LSHIFT):  # Move para a esquerda
+############ CORRER ############
+
+        if pyxel.btn(pyxel.KEY_LSHIFT):  
             self.velocidade = 1.5
         else:
             self.velocidade = 1
+
+
+############ BOTOES DO JOGO ############
 
         if pyxel.btn(pyxel.KEY_A):  # Move para a esquerda
             self.direcao = 'esquerda'
@@ -55,26 +59,36 @@ class Personagem:
             self.estado = 'andando'
             self.y += self.velocidade
 
-        # if pyxel.btnr(not(pyxel.btns())):
-        #     self.estado = 'parado'
+        # Detecta quando as teclas de movimento são liberadas
+        if pyxel.btnr(pyxel.KEY_A) or pyxel.btnr(pyxel.KEY_D) or pyxel.btnr(pyxel.KEY_W) or pyxel.btnr(pyxel.KEY_S):
+            self.estado = 'parado'
 
-        if pyxel.btn(pyxel.KEY_E): #botao pra testar a vida e perder 1 de vida
+############ INTERAGIR ############
+        if pyxel.btn(pyxel.KEY_E):
+            self.estado = 'interagir'  # Botão de interação
+############ TESTAR - VIDA ############
+        if pyxel.btn(pyxel.KEY_V): #botao pra testar a vida e perder 1 de vida
             self.vida = self.vida - 1 
 
+
+############ UPDATE ############
     def update(self):
         self.jogador.mover()
-
+############ DRAW ############
     def desenhar(self):
-        pyxel.camera(self.x - pyxel.width // 2, self.y - pyxel.height // 2)
-        pyxel.rect(self.x -49,self.y - 49, self.vida, 5, 0)  
-        pyxel.rect(self.x -50,self.y - 50, self.vida, 5, 8)  #Desenha a barra de vida do jogador
-#Desenha a barra de vida do jogador
-        pyxel.text(self.x -59,self.y - 49, "{}".format(self.vida), 0)
-        pyxel.text(self.x -60,self.y - 50, "{}".format(self.vida), 8)
+        pyxel.camera(self.x - pyxel.width // 2 +10, self.y - pyxel.height // 2 +10)
+        pyxel.rect(self.x -81,self.y - 49, self.vida, 5, 0)  
+        pyxel.rect(self.x -80,self.y - 50, self.vida, 5, 8)  #Desenha a barra de vida do jogador
 
+############ DESENHA BARRA DE VIDA DO JOGADOR ############
+        pyxel.text(self.x - 91,self.y - 49, "{}".format(self.vida), 0)
+        pyxel.text(self.x - 90,self.y - 50, "{}".format(self.vida), 8)
+
+############ DEFINE MORTE ############
         if self.vida <= 0:
             pyxel.text(self.x -15, self.y - 10, "Voce morreu", 8)
 
+############ ANIMAÇÕES ############
         if self.estado == "parado":
             self.contador_animacao += 1
 
@@ -98,3 +112,17 @@ class Personagem:
                 self.frame = 0
 
             pyxel.blt(self.x, self.y, 0, self.frame, 64, self.xTamanhoSprite, self.yTamanhoSprite, 0)
+
+        if self.estado == 'interagir':
+            self.contador_animacao += 1 
+
+            if self.contador_animacao >= 10:
+                self.frame += 16 
+                self.contador_animacao = 0 
+
+            if self.frame > 96-16:
+                self.frame = 0
+
+            pyxel.blt(self.x, self.y, 0, self.frame, 112, self.xTamanhoSprite, self.yTamanhoSprite, 0)
+            if self.frame == 96-16:
+                self.estado = "parado"
