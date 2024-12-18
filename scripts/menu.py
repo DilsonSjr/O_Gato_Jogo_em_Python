@@ -34,6 +34,7 @@ class Menu:
         for i, opcao in enumerate(self.opcoes):
             cor = 10 if i == self.opcao_selecionada else 9
             pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 105 + i * 10, opcao, cor)
+        pyxel.blt(80 +self.xCameraOffset,80 + self.yCameraOffset, 1, 0, 176,64, 64,2)
 
     def executar_acao(self):
         if self.opcao_selecionada == 0:
