@@ -1,12 +1,11 @@
 import pyxel
 import time
-from jogador import Personagem
 
 class NPC:
-    def __init__(self, x, y, jogador):
+    def __init__(self, x, y, Jogador):
         self.x = x
         self.y = y
-        self.jogador = jogador
+        self.jogador = Jogador
         self.dialogo = False
         self.tempoInicioDialogo = 0
 
@@ -21,12 +20,13 @@ class NPC:
             if self.jogador.estado == "interagir" :
                 self.dialogo = True
                 self.tempoInicioDialogo = time.time()
+    
     def desenhar(self):
         pyxel.blt(self.x, self.y, 0, 0, 176, 16, 16, 0)
 
         if self.dialogo == True:
             pyxel.rect(self.x -10, self.y -10, 38, 10, 0)
-            pyxel.text(self.x -9    , self.y -7,"iae Tchum", 7)
+            pyxel.text(self.x -9, self.y -7,"iae Tchum", 7)
 
             if time.time() - self.tempoInicioDialogo >= 3:
-                    self.dialogo = False
+                self.dialogo = False

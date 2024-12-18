@@ -1,12 +1,15 @@
 import pyxel
-from batalha import combate
 
-class menu:
+class Menu:
 
-    def __init__(self):
+    def __init__(self, xCameraOffset, yCameraOffset):
         self.opcoes = ["Jogar", "Batalhar", "Créditos", "Fechar"]
         self.opcao_selecionada = 0
         self.ativo = True
+
+        self.xCameraOffset = xCameraOffset 
+        self.yCameraOffset = yCameraOffset
+
         pyxel.run(self.update, self.draw)
 
     def update(self):
@@ -24,7 +27,7 @@ class menu:
         pyxel.cls(1)
         for i, opcao in enumerate(self.opcoes):
             cor = 10 if i == self.opcao_selecionada else 9
-            pyxel.text(10, 70 + i * 10, opcao, cor)
+            pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 70 + i * 10, opcao, cor)
 
     def executar_acao(self):
         if self.opcao_selecionada == 0:
@@ -40,7 +43,7 @@ class menu:
         return
 
     def Batalhar(self):
-        combate()
+        return
 
     def Creditos(self):
         return

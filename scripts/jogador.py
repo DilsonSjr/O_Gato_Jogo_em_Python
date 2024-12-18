@@ -1,5 +1,6 @@
 import pyxel
-import time
+from menu import Menu
+
 class Personagem:
 
     def __init__(self, x, y):
@@ -10,10 +11,7 @@ class Personagem:
         self.velocidade = 1
 
         self.vida = d6 + 5
-        self.dano = d6 
-
-        self.largura = 16  
-        self.altura = 16   
+        self.dano = d6
 
         self.estado = 'parado'  
         self.direcao = 'direita'  
@@ -21,22 +19,24 @@ class Personagem:
         self.yTamanhoSprite = 16
 
         self.frame = 0
-        self.contador_animacao = 50  
+        self.contadorAnimacao = 50  
+
+        self.xCameraOffset = self.x - pyxel.width // 2 + 10
+        self.yCameraOffset = self.y - pyxel.height // 2 + 10
+        
 
     def atualizar_d6(self):
         d6 = pyxel.rndi(1, 6)
-
         self.dano = d6
+
 ############ MOVIMENTO ############
     def mover(self):
 
-############ CORRER ############
-
+# ############ CORRER ############
         if pyxel.btn(pyxel.KEY_LSHIFT):  
             self.velocidade = 1.5
         else:
             self.velocidade = 1
-
 
 ############ BOTOES DO JOGO ############
 
@@ -63,38 +63,42 @@ class Personagem:
         if pyxel.btnr(pyxel.KEY_A) or pyxel.btnr(pyxel.KEY_D) or pyxel.btnr(pyxel.KEY_W) or pyxel.btnr(pyxel.KEY_S):
             self.estado = 'parado'
 
+        if pyxel.btn(pyxel.KEY_F1):
+            self.xCameraOffset = self.x - pyxel.width // 2 + 10
+            self.yCameraOffset = self.y - pyxel.height // 2 + 10
+            Menu(self.xCameraOffset, self.yCameraOffset)
+
 ############ INTERAGIR ############
         if pyxel.btn(pyxel.KEY_E):
             self.estado = 'interagir'  # Botão de interação
-############ TESTAR - VIDA ############
-        if pyxel.btn(pyxel.KEY_V): #botao pra testar a vida e perder 1 de vida
-            self.vida = self.vida - 1 
-
 
 ############ UPDATE ############
     def update(self):
         self.jogador.mover()
-############ DRAW ############
+
     def desenhar(self):
-        pyxel.camera(self.x - pyxel.width // 2 +10, self.y - pyxel.height // 2 +10)
-        pyxel.rect(self.x -81,self.y - 49, self.vida, 5, 0)  
-        pyxel.rect(self.x -80,self.y - 50, self.vida, 5, 8)  #Desenha a barra de vida do jogador
+        self.xCameraOffset = self.x - pyxel.width // 2 + 10
+        self.yCameraOffset = self.y - pyxel.height // 2 + 10
+
+        pyxel.camera(self.xCameraOffset, self.yCameraOffset )
+        pyxel.rect(self.xCameraOffset + 16, self.yCameraOffset + 9, self.vida, 5, 0)  
+        pyxel.rect(self.xCameraOffset + 15, self.yCameraOffset + 10, self.vida, 5, 8)  #Desenha a barra de vida do jogador
 
 ############ DESENHA BARRA DE VIDA DO JOGADOR ############
-        pyxel.text(self.x - 91,self.y - 49, "{}".format(self.vida), 0)
-        pyxel.text(self.x - 90,self.y - 50, "{}".format(self.vida), 8)
+        pyxel.text(self.xCameraOffset + 11, self.yCameraOffset + 9, "{}".format(self.vida), 0)
+        pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 10, "{}".format(self.vida), 8)
 
 ############ DEFINE MORTE ############
         if self.vida <= 0:
-            pyxel.text(self.x -15, self.y - 10, "Voce morreu", 8)
+            pyxel.text(self.xCameraOffset, self.yCameraOffset, "Voce morreu", 8)
 
 ############ ANIMAÇÕES ############
         if self.estado == "parado":
-            self.contador_animacao += 1
+            self.contadorAnimacao += 1
 
-            if self.contador_animacao >= 10:
+            if self.contadorAnimacao >= 10:
                 self.frame += 16
-                self.contador_animacao = 0
+                self.contadorAnimacao = 0
 
             if self.frame > 48:
                 self.frame = 0
@@ -102,11 +106,11 @@ class Personagem:
             pyxel.blt(self.x, self.y, 0, self.frame, 0, self.xTamanhoSprite, self.yTamanhoSprite, 0)
 
         if self.estado == 'andando':
-            self.contador_animacao += 1
+            self.contadorAnimacao += 1
 
-            if self.contador_animacao >= 10:
+            if self.contadorAnimacao >= 10:
                 self.frame += 16
-                self.contador_animacao = 0
+                self.contadorAnimacao = 0
 
             if self.frame > 96:
                 self.frame = 0
@@ -114,11 +118,11 @@ class Personagem:
             pyxel.blt(self.x, self.y, 0, self.frame, 64, self.xTamanhoSprite, self.yTamanhoSprite, 0)
 
         if self.estado == 'interagir':
-            self.contador_animacao += 1 
+            self.contadorAnimacao += 1 
 
-            if self.contador_animacao >= 10:
+            if self.contadorAnimacao >= 10:
                 self.frame += 16 
-                self.contador_animacao = 0 
+                self.contadorAnimacao = 0 
 
             if self.frame > 96-16:
                 self.frame = 0
