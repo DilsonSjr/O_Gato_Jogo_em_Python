@@ -9,8 +9,8 @@ class Inimigo:
         self.y = y
 
         self.vida = d6 + 5
-        self.dano = d6
-
+        self.dano = 1
+        self.xp = d6
         self.estado = "parado"
         self.xTamanhoSprite = 16
         self.yTamanhoSprite = 16
@@ -21,7 +21,7 @@ class Inimigo:
     def atualizar_d6(self):
         d6 = pyxel.rndi(1, 6)
         self.dano = d6    
- 
+
     def desenhar(self):
 
         if self.estado == "parado":

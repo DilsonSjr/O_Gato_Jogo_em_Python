@@ -1,5 +1,5 @@
 import pyxel
-from menu import Menu
+#from menu import Menu
 
 class Personagem:
 
@@ -12,7 +12,7 @@ class Personagem:
 
         self.vida = d6 + 5
         self.dano = d6
-
+        self.xp = 0
         self.estado = 'parado'  
         self.direcao = 'direita'  
         self.xTamanhoSprite = 16
@@ -63,30 +63,38 @@ class Personagem:
         if pyxel.btnr(pyxel.KEY_A) or pyxel.btnr(pyxel.KEY_D) or pyxel.btnr(pyxel.KEY_W) or pyxel.btnr(pyxel.KEY_S):
             self.estado = 'parado'
 
-        if pyxel.btn(pyxel.KEY_F1):
-            self.xCameraOffset = self.x - pyxel.width // 2 + 10
-            self.yCameraOffset = self.y - pyxel.height // 2 + 10
-            Menu(self.xCameraOffset, self.yCameraOffset)
+        # if pyxel.btn(pyxel.KEY_F1):
+        #     self.xCameraOffset = self.x - pyxel.width // 2 + 10
+        #     self.yCameraOffset = self.y - pyxel.height // 2 + 10
+        #     Menu(self.xCameraOffset, self.yCameraOffset)
 
 ############ INTERAGIR ############
         if pyxel.btn(pyxel.KEY_E):
-            self.estado = 'interagir'  # Botão de interação
-
+            self.estado = 'interagir'
+            self.velocidade = 0
 ############ UPDATE ############
     def update(self):
         self.jogador.mover()
-
+        print(self.jogador.xp)
     def desenhar(self):
         self.xCameraOffset = self.x - pyxel.width // 2 + 10
         self.yCameraOffset = self.y - pyxel.height // 2 + 10
 
+############ DESENHA BARRA DE VIDA DO JOGADOR ############
         pyxel.camera(self.xCameraOffset, self.yCameraOffset )
         pyxel.rect(self.xCameraOffset + 16, self.yCameraOffset + 9, self.vida, 5, 0)  
-        pyxel.rect(self.xCameraOffset + 15, self.yCameraOffset + 10, self.vida, 5, 8)  #Desenha a barra de vida do jogador
+        pyxel.rect(self.xCameraOffset + 15, self.yCameraOffset + 10, self.vida, 5, 8) 
 
-############ DESENHA BARRA DE VIDA DO JOGADOR ############
         pyxel.text(self.xCameraOffset + 11, self.yCameraOffset + 9, "{}".format(self.vida), 0)
         pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 10, "{}".format(self.vida), 8)
+
+############ DESENHA BARRA DE XP ############
+
+        pyxel.rect(self.xCameraOffset + 16, self.yCameraOffset + 19, self.xp, 5, 0)  
+        pyxel.rect(self.xCameraOffset + 15, self.yCameraOffset + 20, self.xp, 5, 6) 
+
+        pyxel.text(self.xCameraOffset + 11, self.yCameraOffset + 19, "{}".format(self.xp), 0)
+        pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 20, "{}".format(self.xp), 6)
 
 ############ DEFINE MORTE ############
         if self.vida <= 0:
@@ -130,3 +138,4 @@ class Personagem:
             pyxel.blt(self.x, self.y, 0, self.frame, 112, self.xTamanhoSprite, self.yTamanhoSprite, 0)
             if self.frame == 96-16:
                 self.estado = "parado"
+
