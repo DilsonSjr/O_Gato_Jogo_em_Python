@@ -9,6 +9,7 @@ class Mapa:
         self.jogador = jogador
         self.inimigo = Inimigo(20, 20)
         self.npc = NPC(120, 70, self.jogador)
+
         pyxel.run(self.update, self.draw)
 
     def update(self):
