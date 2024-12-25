@@ -41,7 +41,7 @@ class Personagem:
         tileId = pyxel.tilemap(0).pget(tile_x, tile_y)[0]
 
         # IDs de tiles "intransitáveis" com base no map 
-        tiles_com_colisao = [3, 4]   # ?
+        tiles_com_colisao = [0, 0]   # ?
         
         # Retorna True se houver colisão, False caso contrário
         return tileId in tiles_com_colisao
