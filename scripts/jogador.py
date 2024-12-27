@@ -29,22 +29,20 @@ class Personagem:
         d6 = pyxel.rndi(1, 6)
         self.dano = d6
 
-    def verificar_colisao(self, novo_x, novo_y):
-
-        tamanho_tile = 8 # ?
-
-        # Converte a posição do jogador para o sistema de coordenadas do tile
-        tile_x = int(novo_x // tamanho_tile)
-        tile_y = int(novo_y // tamanho_tile)
-
-        # Obtém o ID do tile na nova posição
-        tileId = pyxel.tilemap(0).pget(tile_x, tile_y)[0]
-
-        # IDs de tiles "intransitáveis" com base no map 
-        tiles_com_colisao = [0, 0]   # ?
+    def verificarColisao(self, novo_x, novo_y):
+        tamanhoTile = 8  # Tamanho do tile em pixels
         
-        # Retorna True se houver colisão, False caso contrário
-        return tileId in tiles_com_colisao
+        # Converte a posição do jogador para o sistema de coordenadas do tile
+        tile_x = int(novo_x // tamanhoTile +1.5) # Valores para corrigir a hitbox
+        tile_y = int(novo_y // tamanhoTile +2) # valores para corrigir a hitbox
+        
+        # Obtém a cor do tile na nova posição
+        corTile = pyxel.tilemap(1).pget(tile_x, tile_y)[1]
+        
+        # Verifica se a cor do tile é diferente de 0 (o que significa que há um obstáculo)
+        if corTile == 0:
+            return False  # Colisão detectada
+        return True  # Não há colisão, o gato pode andar
 
     def controle (self, tecla, eixo, velocidade, direcao, tamanhoSprite):
         
@@ -56,14 +54,14 @@ class Personagem:
             # Atualiza a posicao com base no eixo
             if eixo == 'y':
                 # Verifica se a nova posição não colide com o mapa
-                if not self.verificar_colisao(self.x, nova_posicao):
+                if not self.verificarColisao(self.x, nova_posicao):
                     self.direcao = f'{direcao}'
                     self.estado = 'andando'
                     self.y = nova_posicao
                     
             elif eixo == 'x':
                 # Verifica se a nova posição não colide com o mapa
-                if not self.verificar_colisao(nova_posicao, self.y):
+                if not self.verificarColisao(nova_posicao, self.y):
                     self.direcao = f'{direcao}'
                     self.estado = 'andando'
                     self.xTamanhoSprite =  (tamanhoSprite) * abs(self.xTamanhoSprite)

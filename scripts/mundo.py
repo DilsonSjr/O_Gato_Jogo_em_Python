@@ -20,8 +20,8 @@ class Mapa:
             Combate(self.jogador, self.inimigo,self)
 
     def draw(self):
-        pyxel.cls(0)
-        pyxel.bltm(0, 0, 0, 0, 0, 256, 256)
+        pyxel.cls(12)
+        pyxel.bltm(0, 0, 0, 0, 0, 1024, 1024)
         self.inimigo.desenhar()
         self.jogador.desenhar()
         self.npc.desenhar()

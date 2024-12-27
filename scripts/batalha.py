@@ -38,9 +38,9 @@ class Combate:
             "Voce acabou de arranjar uma briga\nque nao pode vencer, miado fraco!",
             "Eu estava so cochilando, mas agora\nvou te ensinar uma licao!",
             "Prepare-se para um verdadeiro\nduelo felino!",
-            "Suas chances sao tao boas quanto um rato\nno meio de uma colonia de gatos!",
             "Voce e corajoso, mas nao sera pario\npara minhas presas afiadas!",
             "Miau, miau... Hora de lutar ate\no ultimo pelo!"
+            "Como lutar com outro gato google pesquisar..\n eita eu... é eu sei oque fazer!"
         ])
 
         self.tempoInicio = time.time()
@@ -119,9 +119,9 @@ class Combate:
         else:
             pyxel.cls(1)
             pyxel.blt(0 + self.xCameraOffset, -64 + self.yCameraOffset, 1, 0, 0, 192, 192)
-            pyxel.rect(0 + self.xCameraOffset, 0 + self.yCameraOffset, 160, 36, 0)
-            pyxel.blt(50 + self.xCameraOffset, 30 + self.yCameraOffset, 1, 0, 0, 64, 64, 0)  # sprite do inimigo
-            pyxel.rect(0 + self.xCameraOffset, 120 + self.yCameraOffset, 160, 36, 0)
+            pyxel.rect(0 + self.xCameraOffset, 0 + self.yCameraOffset, 160, 48, 0)
+            pyxel.blt(50 + self.xCameraOffset, 50 + self.yCameraOffset, 1, 0, 0, 64, 64, 0)  # sprite do inimigo
+            pyxel.rect(0 + self.xCameraOffset, 100 + self.yCameraOffset, 160, 48, 0)
             pyxel.text(10 + self.xCameraOffset, 5 + self.yCameraOffset, f"Rodada: {self.rodada}", 7)
             
 ############ OPCOES DE COMBATE ############
@@ -129,8 +129,8 @@ class Combate:
                 cor = 7 if i == self.opcaoSelecionada else 6
                 pyxel.text(10 + i * 40 + self.xCameraOffset, 120 + self.yCameraOffset, opcao, cor)
 ############ desenha a barra de vida do jogador ###########
-            pyxel.rect(20 + self.xCameraOffset, 106 + self.yCameraOffset, self.jogador.vida, 5, 11)
-            pyxel.text(10 + self.xCameraOffset, 106 + self.yCameraOffset, "{}".format(self.jogador.vida), 11)
+            pyxel.rect(20 + self.xCameraOffset, 110 + self.yCameraOffset, self.jogador.vida, 5, 11)
+            pyxel.text(10 + self.xCameraOffset, 110 + self.yCameraOffset, "{}".format(self.jogador.vida), 11)
             
 ############ desenha a barra de vida do inimigo ############
             pyxel.rect(80 + self.xCameraOffset, 22 + self.yCameraOffset, self.inimigo.vida, 5, 8)
