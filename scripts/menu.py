@@ -47,7 +47,7 @@ class Menu:
             self.Fechar()
 
     def Jogar(self):
-        Mapa(Personagem(31, 80))  # Substitua 31, 80 pela posição inicial desejada
+        Mapa(Personagem(130, 420))  # Substitua 31, 80 pela posição inicial desejada
 
     def Batalhar(self):
         jogador = Personagem(80, 60)  # Substitua 80, 60 pela posição inicial desejada

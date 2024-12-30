@@ -37,7 +37,7 @@ class Personagem:
         tile_y = int(novo_y // tamanhoTile +2) # valores para corrigir a hitbox
         
         # Obtém a cor do tile na nova posição
-        corTile = pyxel.tilemap(1).pget(tile_x, tile_y)[1]
+        corTile = pyxel.tilemaps[1].pget(tile_x, tile_y)[1]
         
         # Verifica se a cor do tile é diferente de 0 (o que significa que há um obstáculo)
         if corTile == 0:

@@ -8,7 +8,7 @@ class Mapa:
         pyxel.load('../assets/images/bartolomeu.pyxres')        
         self.jogador = jogador
         self.inimigo = Inimigo(20, 20)
-        self.npc = NPC(120, 70, self.jogador)
+        self.npc = NPC(17, 57, self.jogador)
 
         pyxel.run(self.update, self.draw)
 
@@ -16,11 +16,15 @@ class Mapa:
         self.jogador.mover()
         self.npc.detectar_jogador()
 
-        if self.inimigo.x == self.jogador.x or self.inimigo.y == self.jogador.y:
-            Combate(self.jogador, self.inimigo,self)
+        # Verifica se as posições do jogador e do inimigo coincide
+        if self.jogador.x == self.inimigo.x and self.jogador.y in range(self.inimigo.y - 50, self.inimigo.y + 50) or self.jogador.y == self.inimigo.y and self.jogador.x in range(self.inimigo.x - 50, self.inimigo.x + 50):
+        # if self.jogador.x in range(self.inimigo.x - 50, self.inimigo.x + 50) and self.jogador.y in range(self.inimigo.y - 50, self.inimigo.y + 50):
+
+        # Inicia o combate
+            Combate(self.jogador, self.inimigo, self)
 
     def draw(self):
-        pyxel.cls(12)
+        pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 1024, 1024)
         self.inimigo.desenhar()
         self.jogador.desenhar()

@@ -1,6 +1,5 @@
 import pyxel
 import random
-import time
 
 class Combate:
     def __init__(self, jogador, inimigo, mundo):
@@ -43,7 +42,7 @@ class Combate:
             "Como lutar com outro gato google pesquisar..\n eita eu... é eu sei oque fazer!"
         ])
 
-        self.tempoInicio = time.time()
+        self.frame_count = 0  # Contador de quadros para controlar o tempo de introdução
 
         pyxel.run(self.update, self.draw)
 
@@ -69,10 +68,17 @@ class Combate:
             # fazer logica de itens
         elif self.opcoes[self.opcaoSelecionada] == "Fugir":
             print("Jogador escolheu fugir")
+            self.jogador.x += self.jogador.x + 50
+            self.jogador.y += self.jogador.y + 50
+            self.jogador.estado = 'parado'
             self.mundo.retornar_ao_mundo()
 
     ############ ATUALIZAÇÃO DO COMBATE ############
     def update(self):
+        if self.frame_count < 90:  # Contador para os primeiros 3 segundos
+            self.frame_count += 1  # Incrementa o contador
+            return  # Nada mais é atualizado enquanto na introdução
+
         if not self.combate_ativo:
             return
 
@@ -90,8 +96,12 @@ class Combate:
                 return
 ############ VERIFICA SE O JOGADOR VENCEU ############
         if self.turno == 0:
-            if pyxel.btnp(pyxel.KEY_SPACE):
-                print("turno do jogador")
+            if pyxel.btnp(pyxel.KEY_A):
+                self.opcaoSelecionada = (self.opcaoSelecionada - 1) % len(self.opcoes)
+            elif pyxel.btnp(pyxel.KEY_D):
+                self.opcaoSelecionada = (self.opcaoSelecionada + 1) % len(self.opcoes)
+            elif pyxel.btnp(pyxel.KEY_SPACE):
+                self.acoes()
                 self.turno = 1
                 self.rodada += 1
 
@@ -101,17 +111,10 @@ class Combate:
             #fazer o aleatorizador de turnos do inimigo para ele nao ficar atacando sem parar
             self.turno = 0
 
-        if pyxel.btnp(pyxel.KEY_A):
-            self.opcaoSelecionada = (self.opcaoSelecionada - 1) % len(self.opcoes)
-        elif pyxel.btnp(pyxel.KEY_D):
-            self.opcaoSelecionada = (self.opcaoSelecionada + 1) % len(self.opcoes)
-        elif pyxel.btnp(pyxel.KEY_SPACE):
-            self.acoes()
-
 ############ DESENHO DO COMBATE INICIADO ############
     def draw(self):
 ############ ANIMACAO DO COMBATE INICIANDO ############
-        if time.time() - self.tempoInicio < 3:
+        if  self.frame_count < 90:
             pyxel.rect(0 + self.xCameraOffset, 0 + self.yCameraOffset, 160, 36, 0)
             pyxel.rect(0 + self.xCameraOffset, 120 + self.yCameraOffset, 160, 36, 0)
             pyxel.text(10 + self.xCameraOffset, 10 + self.yCameraOffset, self.TextosDeAtaque, 7)
