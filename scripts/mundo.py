@@ -55,7 +55,7 @@ class Mapa:
         for porta in self.portas:
             porta.verificar_porta(self.jogador)
 
-        # Log para debug das posições
+        # Log pra debug das posições (usando pra saber as posiçoes das portas)
         print(f"Posição do jogador: ({self.jogador.x}, {self.jogador.y})")
 
         # Verifica se as posições do jogador e do inimigo coincidem
@@ -65,7 +65,7 @@ class Mapa:
 
     def draw(self):
         pyxel.cls(0)
-        pyxel.bltm(0, 0, 0, 0, 0, 2000, 2000)  # Ajuste as dimensões do mapa conforme necessário
+        pyxel.bltm(0, 0, 0, 0, 0, 2000, 2000) #mapa tem que ser enorme pra caber as casas do lado de fora do mapa
         self.inimigo.desenhar()
         self.jogador.desenhar()
         self.npc.desenhar()
