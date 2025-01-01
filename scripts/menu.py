@@ -14,7 +14,7 @@ class Menu:
 
         self.mostrando_intro = False
         self.intro_start_time = None
-        self.intro_duracao = 1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
+        self.intro_duracao = 0.1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
 
         self.xCameraOffset = xCameraOffset 
         self.yCameraOffset = yCameraOffset
@@ -113,7 +113,7 @@ class Menu:
         self.mostrando_creditos = True
 
     def iniciar_jogo(self):
-        Mapa(Personagem(130, 420)) 
+        Mapa(Personagem(1108, 148)) #POSIÇAO INCIAL DO GATO TEM QUE SER NA CAMA 1108, 148
 
     def fechar(self):
         pyxel.close()

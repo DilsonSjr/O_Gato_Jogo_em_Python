@@ -30,7 +30,7 @@ class Personagem:
         self.dano = d6
 
     def verificarColisao(self, novo_x, novo_y):
-        tamanhoTile = 8  # Tamanho do tile em pixels
+        tamanhoTile =8   # Tamanho do tile em pixels
         
         # Converte a posição do jogador para o sistema de coordenadas do tile
         tile_x = int(novo_x // tamanhoTile +1.5) # Valores para corrigir a hitbox
