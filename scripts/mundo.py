@@ -5,9 +5,10 @@ from NPC import NPC
 from batalha import Combate
 class Mapa:
     def __init__(self, jogador):
-        pyxel.load('../assets/images/bartolomeu.pyxres')        
+        pyxel.load('../assets/images/bartolomeu.pyxres')   
+        pyxel.playm(00, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
         self.jogador = jogador
-        self.inimigo = Inimigo(20, 20)
+        self.inimigo = Inimigo(200, 420)
         self.npc = NPC(17, 57, self.jogador)
 
         pyxel.run(self.update, self.draw)

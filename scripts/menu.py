@@ -8,13 +8,13 @@ class Menu:
         pyxel.load('../assets/images/bartolomeu.pyxres')
         self.opcoes = ["Jogar", "Creditos", "Fechar"]
         self.opcao_selecionada = 0
-
+        pyxel.playm(1, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
         self.creditos_start_time = None
         self.mostrando_creditos = False
 
         self.mostrando_intro = False
         self.intro_start_time = None
-        self.intro_duracao = 60
+        self.intro_duracao = 1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
 
         self.xCameraOffset = xCameraOffset 
         self.yCameraOffset = yCameraOffset
