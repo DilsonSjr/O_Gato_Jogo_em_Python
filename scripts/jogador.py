@@ -41,6 +41,7 @@ class Personagem:
         
         # Verifica se a cor do tile é diferente de 0 (o que significa que há um obstáculo)
         if corTile == 0:
+            
             return False  # Colisão detectada
         return True  # Não há colisão, o gato pode andar
 

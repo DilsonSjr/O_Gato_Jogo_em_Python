@@ -11,7 +11,7 @@ class Porta:
         self.x2, self.y2 = x2, y2
         self.largura, self.altura = largura, altura
         self.cooldown = cooldown
-        self.ultimo_uso = -cooldown  # pra ele nao poder entrar direto
+        self.ultimo_uso = -cooldown  # pra ele nao poder entrar direto na porta
 
     def verificar_porta(self, jogador):
         tempo_atual = time.time()
@@ -33,10 +33,9 @@ class Porta:
 class Mapa:
     def __init__(self, jogador):
         pyxel.load('../assets/images/bartolomeu.pyxres')   
-        pyxel.playm(0, 1, True)  # Toca a música de fundo
+        #pyxel.playm(0, 1, True)  # Toca a música de fundo
         self.jogador = jogador
-        self.inimigo = Inimigo(200, 420)
-        self.npc = NPC(268, 377, self.jogador)
+        self.inimigo = Inimigo(200, 200)
 
 ############ Posições das portas        
         self.portas = [
@@ -45,11 +44,27 @@ class Mapa:
             Porta(452,352,1337,239), # Miaws (mercadinho)
         ]
 
+############ desenha os NPCS
+        self.npcs = [
+            NPC(268, 377, "Iae cara, voce e novo aqui nao e ?", 0, 176, 16, 16, num_quadros=4, intervalo_animacao=0.2),
+            NPC(280, 400, "Cara eu ate queria sair da Gatopolis,\n mas eu que nao vou enfrentar o Tutui", 16, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(296, 400, "eu te entendo,\ntutui é o gato mais forte daqui,\nvive na academia", 16, 208, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(1071, 350, "EU SOU O TUTUI O LARGATAO \n E EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(440, 398, "ai que delicia esse picole", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(294, 246, "aff nao ter carros em gatopolis e um saco, \n mas levando em conta a quantidade de gatos\n que morrem atropelados faz sentido", 0, 240, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(600, 200, "Cerebros,\n cerebros fresquinhos,\n eu quero cerebros fresquinhossss", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+                    ]
+        pyxel.run(self.update, self.draw)
         pyxel.run(self.update, self.draw)
 
     def update(self):
+
+    # Atualiza cada NPC
+        for npc in self.npcs:
+            npc.detectar_jogador(self.jogador)
+
         self.jogador.mover()
-        self.npc.detectar_jogador()
+
 
         # Verifica passagem para cada porta
         for porta in self.portas:
@@ -68,7 +83,10 @@ class Mapa:
         pyxel.bltm(0, 0, 0, 0, 0, 2000, 2000) #mapa tem que ser enorme pra caber as casas do lado de fora do mapa
         self.inimigo.desenhar()
         self.jogador.desenhar()
-        self.npc.desenhar()
+
+# Desenha cada NPC
+        for npc in self.npcs:
+            npc.desenhar()
 
     def retornar_ao_mundo(self):
         pyxel.run(self.update, self.draw)

@@ -8,13 +8,13 @@ class Menu:
         pyxel.load('../assets/images/bartolomeu.pyxres')
         self.opcoes = ["Jogar", "Creditos", "Fechar"]
         self.opcao_selecionada = 0
-        pyxel.playm(1, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
+        #pyxel.playm(1, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
         self.creditos_start_time = None
         self.mostrando_creditos = False
 
         self.mostrando_intro = False
         self.intro_start_time = None
-        self.intro_duracao = 0.1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
+        self.intro_duracao = 30 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
 
         self.xCameraOffset = xCameraOffset 
         self.yCameraOffset = yCameraOffset
@@ -23,19 +23,19 @@ class Menu:
 
     def update(self):
         if self.mostrando_creditos:
-            # Sai dos créditos após 5 segundos ou ao pressionar SPACE
+            ##### Sai dos créditos após 5 segundos ou ao pressionar SPACE
             if pyxel.btnp(pyxel.KEY_SPACE) or (time.time() - self.creditos_start_time > 5):
                 self.mostrando_creditos = False
             return
 
         if self.mostrando_intro:
-            # Sai da introdução após o tempo definido
+            ##### Sai da introdução após o tempo definido la encima
             if time.time() - self.intro_start_time > self.intro_duracao:
                 self.mostrando_intro = False
                 self.iniciar_jogo()
             return
 
-        # Navegação no menu
+        # Navegação no menu principal (se pa a gente deveria colocar um menu ingame apertando esc, mas nao sei)
         if pyxel.btnp(pyxel.KEY_W):
             self.opcao_selecionada = (self.opcao_selecionada - 1) % len(self.opcoes)
         elif pyxel.btnp(pyxel.KEY_S):
@@ -67,6 +67,7 @@ class Menu:
 
     def draw_intro(self):
         pyxel.cls(0)
+######## Lore inicial ######## 
         mensagens = [
             "Ola!",
             "bom, essa e a historia\nde como um gato",
