@@ -33,7 +33,7 @@ class Personagem:
         tamanhoTile =8   # Tamanho do tile em pixels
         
         # Converte a posição do jogador para o sistema de coordenadas do tile
-        tile_x = int(novo_x // tamanhoTile +1.5) # Valores para corrigir a hitbox
+        tile_x = int(novo_x // tamanhoTile +1) # Valores para corrigir a hitbox
         tile_y = int(novo_y // tamanhoTile +2) # valores para corrigir a hitbox
         
         # Obtém a cor do tile na nova posição

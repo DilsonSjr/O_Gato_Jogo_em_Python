@@ -72,6 +72,9 @@ class Mapa:
             NPC(415,423, "Verdade que picole bom, é de frango?", 64, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(589,501, "queria ir no show da Miewllie catish\nvoce conhece? ela canta\n\nmeaw, meaw, meaw", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(627,547, "ei me conta como vc veio parar aqui?", 128, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1307,190, "bem vindo ao miaws\n como posso ajudar?", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1307,209, "cara a gente ja bateu a meta\nnao vamo vende nada hoje nao", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+
             
             
                     ]
