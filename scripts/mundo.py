@@ -39,7 +39,22 @@ class Mapa:
         self.portas = [
             Porta(1036, 207, 130, 450), # casa do player
             Porta(1081, 558, 310, 367), # GIM (ginasio)
+
+            Porta(1058,456, 1303,558), # porta errada1 gim inicio #####
+            Porta(1081,456, 1303,813), # porta errada2 gim inicio #####
+            Porta(1105,456, 1017, 750),# porta CERTA3 gim inicio #####
+
+            Porta(991,690, 1015, 1005),# porta CERTA1 gim 2 sala ####
+            Porta(1016,690, 1495,558),# porta errada2 gim 2 sala #### 
+            Porta(1040,690, 1495, 813),# porta errada3 gim 2 sala ####
+
+            Porta(994,943, 1686,558),# porta errada1 gim 3 sala
+            Porta(1017,943,1686,813),# porta errada2 gim 3 sala
+            Porta(1041,943,1271,1070),# porta certa gim 3 sala -> boss
+
+        
             Porta(452,352,1337,239), # Miaws (mercadinho)
+
         ]
 
 ############ desenha os NPCS
@@ -70,9 +85,15 @@ class Mapa:
             NPC(415,423, "Verdade que picole bom, é de frango?", 64, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(589,501, "queria ir no show da Miewllie catish\nvoce conhece? ela canta\n\nmeaw, meaw, meaw", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(627,547, "ei me conta como vc veio parar aqui?", 128, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
-            NPC(1071,350, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(1272,989, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
             NPC(1307,190, "bem vindo ao miaws\n como posso ajudar?", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(1307,209, "cara a gente ja bateu a meta\nnao vamo vende nada hoje nao", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1219,1028, "O tutui vai quebra tua cara", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1219,998, "aqui nao tem lance pra tu bigode fraco", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1219,998, "RA aporrstei\nCinquentrrao no tutuirr", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1090,526, "Bem vindo ao GIM,\ntenha certeza de que voce deve estar aqui", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1068,526, "Voce tem que ser forte\npra sair daqui com vida", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+
             ]
 
         self.inimigo = [Inimigo(213, 423, 8, 3, 128, 208, "Minhas patas nao falham!\nVenha se atrever!"),
@@ -82,8 +103,15 @@ class Mapa:
                         Inimigo(1338, 146, 14, 4, 128, 208, "Prepare-se para sentir minhas garras,\ninvasor!"),
                         Inimigo(460, 510, 16, 5, 128, 208, "Voce e corajoso, mas nao sera pario\npara minhas presas afiadas!"),
                         Inimigo(612, 956, 16, 5, 128, 208, "Prepare-se para um verdadeiro\nduelo felino!"),
-                        Inimigo(279, 842, 14, 6, 128, 208, "Voce ousa entrar no meu territorio?\nVai pagar por isso!"),]
-        
+                        Inimigo(279, 842, 14, 6, 128, 208, "Voce ousa entrar no meu territorio?\nVai pagar por isso!"),
+                        Inimigo(1687, 768, 14, 6, 128, 208, "Voce nao passara por mim!\nPrepare-se para a batalha!"),
+                        Inimigo(1689, 507, 14, 6, 128, 208, "voce estragou meu treino\nbigode fraco"),
+                        Inimigo(1303, 512, 14, 6, 128, 208, "sera que voce é capaz?"),
+                        Inimigo(1305, 767, 14, 6, 128, 208, "Tenho que correr, tenho que..."),
+                        Inimigo(1496, 507, 14, 6, 128, 208, "Ain Tutui malvadao"),
+                        Inimigo(1496, 767, 14, 6, 128, 208, "voce vai morrer! Denovo!"),
+                        ]
+
         self.jogador = jogador
 
         pyxel.run(self.update, self.draw)
