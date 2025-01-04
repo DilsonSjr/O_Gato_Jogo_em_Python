@@ -14,7 +14,7 @@ class Menu:
 
         self.mostrando_intro = False
         self.intro_start_time = None
-        self.intro_duracao = 30 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
+        self.intro_duracao = 1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
 
         self.xCameraOffset = xCameraOffset 
         self.yCameraOffset = yCameraOffset

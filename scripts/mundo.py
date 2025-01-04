@@ -34,8 +34,7 @@ class Mapa:
     def __init__(self, jogador):
         pyxel.load('../assets/images/bartolomeu.pyxres')   
         #pyxel.playm(0, 1, True)  # Toca a música de fundo
-        self.jogador = jogador
-        self.inimigo = Inimigo(200, 200)
+        self.inimigo = Inimigo(235, 194)
 
 ############ Posições das portas        
         self.portas = [
@@ -46,14 +45,38 @@ class Mapa:
 
 ############ desenha os NPCS
         self.npcs = [
-            NPC(268, 377, "Iae cara, voce e novo aqui nao e ?", 0, 176, 16, 16, num_quadros=4, intervalo_animacao=0.2),
-            NPC(280, 400, "Cara eu ate queria sair da Gatopolis,\n mas eu que nao vou enfrentar o Tutui", 16, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
-            NPC(296, 400, "eu te entendo,\ntutui é o gato mais forte daqui,\nvive na academia", 16, 208, 16, 16, num_quadros=3, intervalo_animacao=0.1),
-            NPC(1071, 350, "EU SOU O TUTUI O LARGATAO \n E EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
-            NPC(440, 398, "ai que delicia esse picole", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.1),
-            NPC(294, 246, "aff nao ter carros em gatopolis e um saco, \n mas levando em conta a quantidade de gatos\n que morrem atropelados faz sentido", 0, 240, 16, 16, num_quadros=3, intervalo_animacao=0.1),
-            NPC(600, 200, "Cerebros,\n cerebros fresquinhos,\n eu quero cerebros fresquinhossss", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(268,377, "Iae cara, voce e novo aqui nao e ?", 0, 176, 16, 16, num_quadros=4, intervalo_animacao=0.2),
+            NPC(280,400, "Cara eu ate queria sair da Gatopolis,\nmas o tutui guarda a chave do portão", 16, 192, 16, 16, num_quadros=3, intervalo_animacao=0.2),
+            NPC(296,400, "tutui é o gato mais forte daqui,\nvive na academia", 48, 208, -16, 16, num_quadros=3, intervalo_animacao=0.2),
+            NPC(1071,350, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(440,398, "ai que delicia esse picole", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.2),
+            NPC(294,246, "Uma caixinha de papelao\nera meu sonho agora", 0, 240, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(600,200, "Cerebros,\n cerebros fresquinhos,\neu quero cerebros fresquinhossss", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(244,500, "eu juro proce, Gatopolis instiga\ntodo mundo a falar errado", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(211,530, "eu to ocupado tentando nao falar com voce ok?\nsai fora", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(210,577, "EQUIPAR UM ITEM FAZ VOCE FICAR MAIS FORTE\ndesculpa eu sempre quis ser tutorial \nde um jogo em vida", 0, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(215,587, "qui saudadi de passa o dia todo fazendo nada so\n ZzZ", 64, 208, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(278,610, "virei policial aqui so pelo distintivo brilhante", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(436,704, "queria entra pra academia,\nmas o tutui so deixa os de verdade la", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(578,756, "queria comprar um terninho\nmas eu sou tao pobrin", 0, 208, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(534,844, "nao fala comigo nao que\neu to trevoso", 0, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(475,844, "nao, olhe, para a luz vermelha", 0, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(368,878, "nao tem um inseto pra cacar\nque odio", 0, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(268,774, "novelo di la\num item di luxo por essas bandas\nsim", 128, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(376,384, "hey toma cuidado,\nexistem gatos perigosos por aqui", 112, 224, -16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(132,212, "ai eu adoro praia, mas essa areia te conta", 64, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(548,134, "essa cidade e muito BRAT meo", 64, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(613,126, "aquele portao dourado, e a saida de gatopolis,\ndizem que tudo e possivel apartir dele ", 0, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(687,283, "ei amor olha aquele peixe la", 0, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(687,300, "se eu tivesse uma vara de pesca\nele ja tava fritin", 64, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(415,423, "Verdade que picole bom, é de frango?", 64, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(589,501, "queria ir no show da Miewllie catish\nvoce conhece? ela canta\n\nmeaw, meaw, meaw", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(627,547, "ei me conta como vc veio parar aqui?", 128, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            
+            
                     ]
+        self.jogador = jogador
+
         pyxel.run(self.update, self.draw)
         pyxel.run(self.update, self.draw)
 
