@@ -1,6 +1,5 @@
 import pyxel
 import time
-from jogador import Personagem
 from inimigo import Inimigo
 from NPC import NPC
 from batalha import Combate
@@ -32,9 +31,9 @@ class Porta:
 
 class Mapa:
     def __init__(self, jogador):
-        pyxel.load('../assets/images/bartolomeu.pyxres')   
+        pyxel.load('../assets/images/bartolomeu.pyxres')
+        self.boss_fight =  True   
         #pyxel.playm(0, 1, True)  # Toca a música de fundo
-        self.inimigo = Inimigo(235, 194)
 
 ############ Posições das portas        
         self.portas = [
@@ -48,7 +47,6 @@ class Mapa:
             NPC(268,377, "Iae cara, voce e novo aqui nao e ?", 0, 176, 16, 16, num_quadros=4, intervalo_animacao=0.2),
             NPC(280,400, "Cara eu ate queria sair da Gatopolis,\nmas o tutui guarda a chave do portão", 16, 192, 16, 16, num_quadros=3, intervalo_animacao=0.2),
             NPC(296,400, "tutui é o gato mais forte daqui,\nvive na academia", 48, 208, -16, 16, num_quadros=3, intervalo_animacao=0.2),
-            NPC(1071,350, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
             NPC(440,398, "ai que delicia esse picole", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.2),
             NPC(294,246, "Uma caixinha de papelao\nera meu sonho agora", 0, 240, 16, 16, num_quadros=3, intervalo_animacao=0.1),
             NPC(600,200, "Cerebros,\n cerebros fresquinhos,\neu quero cerebros fresquinhossss", 64, 160, 16, 16, num_quadros=3, intervalo_animacao=0.3),
@@ -72,12 +70,20 @@ class Mapa:
             NPC(415,423, "Verdade que picole bom, é de frango?", 64, 192, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(589,501, "queria ir no show da Miewllie catish\nvoce conhece? ela canta\n\nmeaw, meaw, meaw", 64, 176, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(627,547, "ei me conta como vc veio parar aqui?", 128, 240, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            NPC(1071,350, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
             NPC(1307,190, "bem vindo ao miaws\n como posso ajudar?", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(1307,209, "cara a gente ja bateu a meta\nnao vamo vende nada hoje nao", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
+            ]
 
-            
-            
-                    ]
+        self.inimigo = [Inimigo(213, 423, 8, 3, 128, 208, "Minhas patas nao falham!\nVenha se atrever!"),
+                        Inimigo(318, 544, 10, 3, 128, 208, "Hora de mostrar quem e o verdadeiro\nrei deste quintal!"),
+                        Inimigo(371, 97, 10, 3,  128, 208, "Como lutar com outro gato google pesquisar..\n eita eu... é eu sei oque fazer!"),
+                        Inimigo(506, 255, 12, 4, 128, 208, "Eu estava so cochilando, mas agora\nvou te ensinar uma licao!"),
+                        Inimigo(1338, 146, 14, 4, 128, 208, "Prepare-se para sentir minhas garras,\ninvasor!"),
+                        Inimigo(460, 510, 16, 5, 128, 208, "Voce e corajoso, mas nao sera pario\npara minhas presas afiadas!"),
+                        Inimigo(612, 956, 16, 5, 128, 208, "Prepare-se para um verdadeiro\nduelo felino!"),
+                        Inimigo(279, 842, 14, 6, 128, 208, "Voce ousa entrar no meu territorio?\nVai pagar por isso!"),]
+        
         self.jogador = jogador
 
         pyxel.run(self.update, self.draw)
@@ -91,28 +97,39 @@ class Mapa:
 
         self.jogador.mover()
 
-
         # Verifica passagem para cada porta
         for porta in self.portas:
             porta.verificar_porta(self.jogador)
 
         # Log pra debug das posições (usando pra saber as posiçoes das portas)
         print(f"Posição do jogador: ({self.jogador.x}, {self.jogador.y})")
+        
+        for inimigo in self.inimigo:
+            if inimigo.vida > 0 and not inimigo.time > 0:
+                if (self.jogador.x == inimigo.x and self.jogador.y in range(inimigo.y - 50, inimigo.y + 50)) or \
+                    (self.jogador.y == inimigo.y and self.jogador.x in range(inimigo.x - 50, inimigo.x + 50)):
+                    Combate(self.jogador, inimigo, self)
 
-        # Verifica se as posições do jogador e do inimigo coincidem
-        if (self.jogador.x == self.inimigo.x and self.jogador.y in range(self.inimigo.y - 50, self.inimigo.y + 50)) or \
-            (self.jogador.y == self.inimigo.y and self.jogador.x in range(self.inimigo.x - 50, self.inimigo.x + 50)):
-            Combate(self.jogador, self.inimigo, self)
+        todos_sem_vida  = all(inimigo.vida <= 0 for inimigo in self.inimigo)
 
+        if todos_sem_vida and self.boss_fight:
+            self.npcs.pop()
+            self.inimigo.append(Inimigo(1071, 350, 30, 6, 128, 192, "Voce acabou de arranjar uma briga\nque nao pode vencer, miado fraco!"))
+            self.boss_fight = False
+        elif todos_sem_vida and not self.boss_fight:
+            # Jogo GANHO
+            return
     def draw(self):
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 2000, 2000) #mapa tem que ser enorme pra caber as casas do lado de fora do mapa
-        self.inimigo.desenhar()
         self.jogador.desenhar()
 
 # Desenha cada NPC
         for npc in self.npcs:
             npc.desenhar()
+
+        for inimigo in self.inimigo:
+            inimigo.desenhar()
 
     def retornar_ao_mundo(self):
         pyxel.run(self.update, self.draw)

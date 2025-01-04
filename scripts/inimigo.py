@@ -2,14 +2,15 @@ import pyxel
 
 class Inimigo:
 
-    def __init__ (self, x, y):
+    def __init__ (self, x, y, vida, dano, sprite_x, sprite_y, texto):
         d6 = pyxel.rndi(1, 6)
         
         self.x = x
         self.y = y
-
-        self.vida = d6 + 5
-        self.dano = 1
+        
+        self.texto = texto
+        self.vida = vida
+        self.dano = dano
         self.xp = d6
         self.estado = "parado"
         self.xTamanhoSprite = 16
@@ -17,12 +18,19 @@ class Inimigo:
         
         self.frame = 0
         self.contador_animacao = 50 
+        self.sprite_x = sprite_x
+        self.sprite_y = sprite_y
+
+        self.time = 0
 
     def atualizar_d6(self):
         d6 = pyxel.rndi(1, 6)
         self.dano = d6    
 
     def desenhar(self):
+        
+        if self.time > 0:
+            self.time -= 1
 
         if self.estado == "parado":
             self.contador_animacao += 1
@@ -34,4 +42,4 @@ class Inimigo:
             if self.frame > 48:
                 self.frame = 0
 
-            pyxel.blt(self.x, self.y, 0, self.frame, 160, self.xTamanhoSprite, self.yTamanhoSprite, 0)
+            pyxel.blt(self.x, self.y, 0, self.sprite_x + self.frame, self.sprite_y, self.xTamanhoSprite, self.yTamanhoSprite, 0)

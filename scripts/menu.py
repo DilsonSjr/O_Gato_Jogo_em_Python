@@ -62,7 +62,7 @@ class Menu:
 
     def draw_creditos(self):
         pyxel.cls(0)
-        pyxel.text(10, 50, "Trabalho de: \n\nDilson Simões, 166609 \nGuilherme Burkert, xxxxxxx", pyxel.COLOR_WHITE)
+        pyxel.text(10, 50, "Trabalho de: \n\nDilson Simões, 166609 \nGuilherme Burkert, 169504", pyxel.COLOR_WHITE)
         pyxel.text(10,120,"Espere ou \nPressione ESPACO para voltar", pyxel.COLOR_WHITE)
 
     def draw_intro(self):

@@ -18,7 +18,8 @@ class Personagem:
         self.yTamanhoSprite = 16
 
         self.frame = 0
-        self.contadorAnimacao = 50  
+        self.contadorAnimacao = 50 
+        self.itens = ['pocao de vida']
 
         self.xCameraOffset = self.x - pyxel.width // 2 + 10
         self.yCameraOffset = self.y - pyxel.height // 2 + 10
@@ -33,7 +34,7 @@ class Personagem:
         tamanhoTile =8   # Tamanho do tile em pixels
         
         # Converte a posição do jogador para o sistema de coordenadas do tile
-        tile_x = int(novo_x // tamanhoTile +1) # Valores para corrigir a hitbox
+        tile_x = int(novo_x // tamanhoTile +1.5) # Valores para corrigir a hitbox
         tile_y = int(novo_y // tamanhoTile +2) # valores para corrigir a hitbox
         
         # Obtém a cor do tile na nova posição
@@ -75,12 +76,16 @@ class Personagem:
         self.controle(pyxel.KEY_D, 'x', self.velocidade, 'direita', 1)
         self.controle(pyxel.KEY_W, 'y', -self.velocidade, 'cima', 0)
         self.controle(pyxel.KEY_S, 'y', self.velocidade, 'baixo', 0)
-    
+        
         # Verifica interacao
         if pyxel.btn(pyxel.KEY_E):
             self.estado = 'interagir'
             self.velocidade = 0
 
+        if self.xp >= 10: 
+            self.vida += 5
+            self.dano += 2
+            self.xp -= 10
         # Habilita sprint
         if pyxel.btn(pyxel.KEY_SHIFT):
             self.velocidade = 1.5
