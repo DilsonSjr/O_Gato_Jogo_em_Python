@@ -39,17 +39,8 @@ pip install pyxel
 ### 3. Clonar o repositório
 Baixe ou clone o código-fonte do jogo para o seu computador:
 
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd <PASTA_DO_REPOSITORIO>
-```
-
 ### 4. Executar o jogo
-Dentro da pasta do repositório, execute o seguinte comando:
-
-```bash
-python main.py
-```
+Dentro da pasta do repositório, execute o arquivo main.py
 
 ---
 
