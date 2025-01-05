@@ -9,14 +9,14 @@ class Menu:
         self.opcoes = ["Jogar", "Controles", "Creditos", "Fechar"]
 
         self.opcao_selecionada = 0
-        #pyxel.playm(1, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
+        pyxel.playm(0, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
         self.creditos_start_time = None
         self.mostrando_creditos = False
         self.mostrando_controles =  False
 
         self.mostrando_intro = False
         self.intro_start_time = None
-        self.intro_duracao = 1 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
+        self.intro_duracao = 40 #define o tempo de duraçao da intro, dexa em 1 pra testar e antes de lançar aumenta pra 60
 
         self.xCameraOffset = xCameraOffset 
         self.yCameraOffset = yCameraOffset
@@ -71,7 +71,11 @@ class Menu:
 
     def draw_controles(self):
         pyxel.cls(0)
-        pyxel.text(10, 50, "Teste", pyxel.COLOR_WHITE)
+        pyxel.text(10, 50, "WASD - para andar", pyxel.COLOR_WHITE)
+        pyxel.text(10, 60, "E - para comversar com NPCS]", pyxel.COLOR_WHITE)
+        pyxel.text(10, 70, "ESPAÇO - para escolher opcoes no menu", pyxel.COLOR_WHITE)
+        
+
 
     def draw_intro(self):
         pyxel.cls(0)
