@@ -40,7 +40,7 @@ pip install pyxel
 Baixe ou clone o código-fonte do jogo para o seu computador:
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone <https://github.com/DilsonSjr/jogoempython>
 cd <PASTA_DO_REPOSITORIO>
 ```
 
