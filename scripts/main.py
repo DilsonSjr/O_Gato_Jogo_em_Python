@@ -7,3 +7,4 @@ class Jogo:
         Menu(xCameraOffset=0, yCameraOffset=0)
 
 Jogo()      
+

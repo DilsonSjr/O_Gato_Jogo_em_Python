@@ -4,6 +4,7 @@ class Personagem:
 
     def __init__(self, x, y):
         d6 = pyxel.rndi(1, 6)
+        self.time =  0
 
         self.x = x 
         self.y = y 
@@ -19,7 +20,6 @@ class Personagem:
 
         self.frame = 0
         self.contadorAnimacao = 50 
-        self.itens = ['pocao de vida']
 
         self.xCameraOffset = self.x - pyxel.width // 2 + 10
         self.yCameraOffset = self.y - pyxel.height // 2 + 10
@@ -27,7 +27,7 @@ class Personagem:
     def atualizar_d6(self):
 
         # Define um valor aleatorio para o dano
-        d6 = pyxel.rndi(1, 6)
+        d6 = pyxel.rndi(3, 5)
         self.dano = d6
 
     def verificarColisao(self, novo_x, novo_y):
@@ -80,25 +80,21 @@ class Personagem:
         # Verifica interacao
         if pyxel.btn(pyxel.KEY_E):
             self.estado = 'interagir'
-            self.velocidade = 0
 
         if self.xp >= 10: 
             self.vida += 5
             self.dano += 2
             self.xp -= 10
-        # Habilita sprint
-        if pyxel.btn(pyxel.KEY_SHIFT):
-            self.velocidade = 1.5
-        else:
-            self.velocidade = 1
+
+        # # Habilita sprint #desabilitado por conta do ritmo do jogo
+        # if pyxel.btn(pyxel.KEY_SHIFT):
+        #     self.velocidade = 1.5
+        # else:
+        #     self.velocidade = 1
 
         # Detecta quando as teclas de movimento sao liberadas
         if pyxel.btnr(pyxel.KEY_A) or pyxel.btnr(pyxel.KEY_D) or pyxel.btnr(pyxel.KEY_W) or pyxel.btnr(pyxel.KEY_S):
             self.estado = 'parado'
-
-        # Define a morte
-        if self.vida <= 0:
-            pyxel.text(self.xCameraOffset, self.yCameraOffset, "Voce morreu", 8)
 
     def animacoes(self):
         
@@ -150,8 +146,8 @@ class Personagem:
         pyxel.camera(self.xCameraOffset, self.yCameraOffset )
 
         # Desenha a barra de vida
-        pyxel.rect(self.xCameraOffset + 16, self.yCameraOffset + 9, self.vida, 5, 0)  
-        pyxel.rect(self.xCameraOffset + 15, self.yCameraOffset + 10, self.vida, 5, 8) 
+        pyxel.rect(self.xCameraOffset + 18, self.yCameraOffset + 9, self.vida, 5, 0)  
+        pyxel.rect(self.xCameraOffset + 17, self.yCameraOffset + 10, self.vida, 5, 8) 
         
         pyxel.text(self.xCameraOffset + 11, self.yCameraOffset + 9, "{}".format(self.vida), 0)
         pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 10, "{}".format(self.vida), 8)

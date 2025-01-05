@@ -2,16 +2,14 @@ import pyxel
 
 class Inimigo:
 
-    def __init__ (self, x, y, vida, dano, sprite_x, sprite_y, texto):
-        d6 = pyxel.rndi(1, 6)
-        
+    def __init__ (self, x, y, vida, dano, sprite_x, sprite_y, texto):     
         self.x = x
         self.y = y
         
         self.texto = texto
         self.vida = vida
         self.dano = dano
-        self.xp = d6
+        self.xp = pyxel.rndi(1, 6)
         self.estado = "parado"
         self.xTamanhoSprite = 16
         self.yTamanhoSprite = 16
@@ -21,11 +19,7 @@ class Inimigo:
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
 
-        self.time = 0
-
-    def atualizar_d6(self):
-        d6 = pyxel.rndi(1, 6)
-        self.dano = d6    
+        self.time = 0    
 
     def desenhar(self):
         

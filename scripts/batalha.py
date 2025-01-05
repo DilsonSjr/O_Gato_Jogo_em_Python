@@ -38,9 +38,9 @@ class Combate:
     def acoes(self):
         if self.opcoes[self.opcaoSelecionada] == "Atacar":
             pyxel.text(10 + self.jogador.xCameraOffset, 15 + self.jogador.yCameraOffset, "Atacou", 7)
-            self.inimigo.vida = self.inimigo.vida - self.jogador.dano
+            self.inimigo.vida -= self.jogador.dano
             self.last_turn_heal = False
-        elif self.opcoes[self.opcaoSelecionada] == "Recuperar" and not self.last_turn_heal:
+        elif self.opcoes[self.opcaoSelecionada] == "Descansar" and not self.last_turn_heal:
             pyxel.text(10 + self.jogador.xCameraOffset, 15 + self.jogador.yCameraOffset, "Recuperou", 7)
             self.jogador.vida += self.jogador.dano
             self.last_turn_heal = True
@@ -48,6 +48,7 @@ class Combate:
             pyxel.text(10 + self.jogador.xCameraOffset, 15 + self.jogador.yCameraOffset, "Você fugiu do combate!", 7)
             self.jogador.estado = 'parado'
             self.inimigo.time = 100
+            self.last_turn_heal = False
             self.mundo.retornar_ao_mundo()
 
     ############ ATUALIZAÇÃO DO COMBATE ############
@@ -67,7 +68,7 @@ class Combate:
                 self.inimigo.time = 100
                 self.jogador.estado = 'parado'
                 self.jogador.xp = self.jogador.xp + self.inimigo.xp
-                self.jogador.vida += 5
+                self.jogador.vida += 3
                 self.mundo.retornar_ao_mundo()
                 return
             elif self.resultado == "derrota":
@@ -110,6 +111,7 @@ class Combate:
             pyxel.blt(50 + self.jogador.xCameraOffset, 50 + self.jogador.yCameraOffset, 1, 0, 0, 64, 64, 0)  # sprite do inimigo
             pyxel.rect(0 + self.jogador.xCameraOffset, 100 + self.jogador.yCameraOffset, 160, 48, 0)
             pyxel.text(10 + self.jogador.xCameraOffset, 5 + self.jogador.yCameraOffset, f"Rodada: {self.rodada}", 7)
+            
             
 ############ OPCOES DE COMBATE ############
             for i, opcao in enumerate(self.opcoes):

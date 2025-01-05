@@ -5,12 +5,14 @@ from jogador import Personagem
 
 class Menu:
     def __init__(self, xCameraOffset, yCameraOffset):
-        pyxel.load('../assets/images/bartolomeu.pyxres')
-        self.opcoes = ["Jogar", "Creditos", "Fechar"]
+        pyxel.load('../assets/bartolomeu.pyxres')
+        self.opcoes = ["Jogar", "Controles", "Creditos", "Fechar"]
+
         self.opcao_selecionada = 0
         #pyxel.playm(1, 1, True) # toca a musica de fundo, 00 é o numero da soundtrack, 1 é os ticks 1 =160, True é se loopa
         self.creditos_start_time = None
         self.mostrando_creditos = False
+        self.mostrando_controles =  False
 
         self.mostrando_intro = False
         self.intro_start_time = None
@@ -48,6 +50,8 @@ class Menu:
             self.draw_creditos()
         elif self.mostrando_intro:
             self.draw_intro()
+        elif self.mostrando_controles:
+            self.draw_controles()
         else:
             self.draw_menu()
 
@@ -64,6 +68,10 @@ class Menu:
         pyxel.cls(0)
         pyxel.text(10, 50, "Trabalho de: \n\nDilson Simões, 166609 \nGuilherme Burkert, 169504", pyxel.COLOR_WHITE)
         pyxel.text(10,120,"Espere ou \nPressione ESPACO para voltar", pyxel.COLOR_WHITE)
+
+    def draw_controles(self):
+        pyxel.cls(0)
+        pyxel.text(10, 50, "Teste", pyxel.COLOR_WHITE)
 
     def draw_intro(self):
         pyxel.cls(0)
@@ -101,8 +109,10 @@ class Menu:
         if self.opcao_selecionada == 0:
             self.mostrar_intro()
         elif self.opcao_selecionada == 1:
-            self.mostrar_creditos()
+            self.mostrar_controles()
         elif self.opcao_selecionada == 2:
+            self.mostrar_creditos()
+        elif self.opcao_selecionada == 3:
             self.fechar()
 
     def mostrar_intro(self):
@@ -112,6 +122,9 @@ class Menu:
     def mostrar_creditos(self):
         self.creditos_start_time = time.time()
         self.mostrando_creditos = True
+
+    def mostrar_controles(self):
+        self.mostrando_controles = True
 
     def iniciar_jogo(self):
         Mapa(Personagem(1108, 148)) #POSIÇAO INCIAL DO GATO TEM QUE SER NA CAMA 1108, 148
