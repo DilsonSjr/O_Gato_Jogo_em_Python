@@ -46,14 +46,16 @@ Dentro da pasta do repositório, execute o arquivo main.py
 ## Imagens do Jogo
 
 ### Tela de Título
-[Adicione uma imagem da tela de título aqui]
+[Tela de Menu do jogo](https://github.com/DilsonSjr/O_Gato_Jogo_em_Python/blob/main/assets/Menu%20Print.png)
 
 ### Exploração da Cidade
-[Adicione uma imagem mostrando a exploração da cidade aqui]
+[Um gato explorando uma cidade ao lado de um mercado chamado Miaus](https://github.com/DilsonSjr/O_Gato_Jogo_em_Python/blob/main/assets/Explorando%20o%20Mapa%20Print.png)
 
 ### Batalha
-[Adicione uma imagem de uma batalha aqui]
+[Uma tela de Combate onde mostra um gato armado, e três opcões, Atacar,Descansar e Fugir](https://github.com/DilsonSjr/O_Gato_Jogo_em_Python/blob/main/assets/Combate%20Print.png)
 
+### Lute
+[Uma arena de luta com um gato bombado no outro lado gritando "EU SOU TUTUI O LARGATAO E EU MANDO NESSE LUGAR"](https://github.com/DilsonSjr/O_Gato_Jogo_em_Python/blob/main/assets/Arena%20Print.png)
 ---
 
 Esperamos que você se divirta explorando o mundo de "O Gato" e enfrentando seus desafios! Caso encontre bugs ou tenha sugestões, fique à vontade para abrir uma issue no repositório.
