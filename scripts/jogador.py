@@ -10,8 +10,8 @@ class Personagem:
         self.y = y 
         self.velocidade = 1
 
-        self.vida = d6 + 10
-        self.dano = d6 + 5
+        self.vida = d6 + 12
+        self.dano = d6 + 3
         self.xp = 0
         self.estado = 'parado'  
         self.direcao = 'direita'  
@@ -146,8 +146,8 @@ class Personagem:
         pyxel.camera(self.xCameraOffset, self.yCameraOffset )
 
         # Desenha a barra de vida
-        pyxel.rect(self.xCameraOffset + 18, self.yCameraOffset + 9, self.vida, 5, 0)  
-        pyxel.rect(self.xCameraOffset + 17, self.yCameraOffset + 10, self.vida, 5, 8) 
+        pyxel.rect(self.xCameraOffset + 20, self.yCameraOffset + 9, self.vida, 5, 0)  
+        pyxel.rect(self.xCameraOffset + 19, self.yCameraOffset + 10, self.vida, 5, 8) 
         
         pyxel.text(self.xCameraOffset + 11, self.yCameraOffset + 9, "{}".format(self.vida), 0)
         pyxel.text(self.xCameraOffset + 10, self.yCameraOffset + 10, "{}".format(self.vida), 8)
