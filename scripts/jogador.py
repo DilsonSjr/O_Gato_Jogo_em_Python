@@ -11,7 +11,7 @@ class Personagem:
         self.velocidade = 1
 
         self.vida = d6 + 10
-        self.dano = d6
+        self.dano = d6 + 5
         self.xp = 0
         self.estado = 'parado'  
         self.direcao = 'direita'  

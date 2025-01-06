@@ -13,6 +13,8 @@ class Combate:
         self.opcaoSelecionada = 0
         self.opcoes = ["Atacar", "Descansar", "Fugir"]
         self.last_turn_heal = False
+        
+        pyxel.playm(0, 1, True)  # Toca a música de combate
 
         ############ DEBUG DO COMBATE ############
         print("dano ", self.jogador.dano)
@@ -35,6 +37,11 @@ class Combate:
             self.resultado = "derrota"
             self.combate_ativo = False
 
+        # Para a música se o combate acabar
+        if not self.combate_ativo:
+            pyxel.stop()
+            pyxel.playm(1, 1, True)  # Toca a música de fundo
+            
     def acoes(self):
         if self.opcoes[self.opcaoSelecionada] == "Atacar":
             pyxel.text(10 + self.jogador.xCameraOffset, 15 + self.jogador.yCameraOffset, "Atacou", 7)
@@ -96,14 +103,12 @@ class Combate:
                 self.inimigo.vida = self.inimigo.vida + self.inimigo.dano
             self.turno = 0
 
-############ DESENHO DO COMBATE INICIADO ############
+    ############ DESENHO DO COMBATE INICIADO ############
     def draw(self):
-############ ANIMACAO DO COMBATE INICIANDO ############
-        if  self.frame_count < 90:
+        if self.frame_count < 90:
             pyxel.rect(0 + self.jogador.xCameraOffset, 0 + self.jogador.yCameraOffset, 160, 36, 0)
             pyxel.rect(0 + self.jogador.xCameraOffset, 120 + self.jogador.yCameraOffset, 160, 36, 0)
             pyxel.text(10 + self.jogador.xCameraOffset, 10 + self.jogador.yCameraOffset, self.TextosDeAtaque, 7)
-############ MENU DE COMBATE ############
         else:
             pyxel.cls(1)
             pyxel.blt(0 + self.jogador.xCameraOffset, -64 + self.jogador.yCameraOffset, 1, 0, 0, 192, 192)
@@ -111,15 +116,12 @@ class Combate:
             pyxel.blt(50 + self.jogador.xCameraOffset, 50 + self.jogador.yCameraOffset, 1, 0, 0, 64, 64, 0)  # sprite do inimigo
             pyxel.rect(0 + self.jogador.xCameraOffset, 100 + self.jogador.yCameraOffset, 160, 48, 0)
             pyxel.text(10 + self.jogador.xCameraOffset, 5 + self.jogador.yCameraOffset, f"Rodada: {self.rodada}", 7)
-            
-            
-############ OPCOES DE COMBATE ############
+
             for i, opcao in enumerate(self.opcoes):
                 cor = 7 if i == self.opcaoSelecionada else 6
                 pyxel.text(10 + i * 40 + self.jogador.xCameraOffset, 120 + self.jogador.yCameraOffset, opcao, cor)
-############ desenha a barra de vida do jogador ###########
+
             pyxel.rect(20 + self.jogador.xCameraOffset, 110 + self.jogador.yCameraOffset, self.jogador.vida, 5, 11)
             pyxel.text(10 + self.jogador.xCameraOffset, 110 + self.jogador.yCameraOffset, "{}".format(self.jogador.vida), 11)
-            
-############ desenha a barra de vida do inimigo ############
+
             pyxel.rect(80 + self.jogador.xCameraOffset, 22 + self.jogador.yCameraOffset, self.inimigo.vida, 5, 8)

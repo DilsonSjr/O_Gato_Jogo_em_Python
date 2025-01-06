@@ -17,6 +17,7 @@ class NPC:
 
         self.dialogo = False
         self.tempo_inicio_dialogo = 0
+        self.exibir_indicador = False  # Controla o indicador de interação
 
     def detectar_jogador(self, jogador):
         # Verifica se o jogador está próximo ao NPC
@@ -25,10 +26,14 @@ class NPC:
         distancia_maxima = 16  # Distância máxima para interação
 
         if distancia_x <= distancia_maxima and distancia_y <= distancia_maxima:
+            self.exibir_indicador = True  # Exibe o indicador de interação
+
             # Verifica se a tecla E está sendo apertada
             if jogador.estado == "interagir":
                 self.dialogo = True
                 self.tempo_inicio_dialogo = time.time()
+        else:
+            self.exibir_indicador = False  # Oculta o indicador se o jogador estiver longe
 
     def atualizar_animacao(self):
         tempo_atual = time.time()
@@ -43,6 +48,13 @@ class NPC:
         # Calcula a posição do sprite com base no quadro atual
         quadro_offset = self.quadro_atual * self.largura
         pyxel.blt(self.x, self.y, 0, self.sprite_x + quadro_offset, self.sprite_y, self.largura, self.altura, 0)
+
+        # Desenha o indicador de interação
+        if self.exibir_indicador:
+            indicador_x = self.x + self.largura // 2 - 4
+            indicador_y = self.y - 10
+            pyxel.rect(indicador_x, indicador_y, 8, 8, 0)  # Quadrado preto
+            pyxel.text(indicador_x + 2, indicador_y + 1, "E", 7)  # Letra "E" em branco
 
         # Mostra o diálogo, se ativo
         if self.dialogo:
