@@ -73,7 +73,7 @@ class Menu:
         pyxel.cls(0)
         pyxel.text(10, 50, "W A S D - para andar", pyxel.COLOR_WHITE)
         pyxel.text(10, 60, "E - para comversar com NPCS", pyxel.COLOR_WHITE)
-        pyxel.text(10, 70, "ESPAÇO - para escolher opcoes no menu", pyxel.COLOR_WHITE)
+        pyxel.text(10, 70, "ESPACO - para escolher opcoes no menu", pyxel.COLOR_WHITE)
         
 
 

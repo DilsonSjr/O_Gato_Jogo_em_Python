@@ -92,7 +92,21 @@ class Mapa:
             NPC(1219,998, "RA aporrstei\nCinquentrrao no tutuirr", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(1090,526, "Bem vindo ao GIM,\ntenha certeza de que voce deve estar aqui", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
             NPC(1068,526, "Voce tem que ser forte\npra sair daqui com vida", 128, 224, 16, 16, num_quadros=3, intervalo_animacao=0.3),
-            NPC(1272,989, "EU SOU O TUTUI O LARGATAO\nE EU MANDO NESSE LUGAR", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            # Interações com o mundo
+            NPC(980,136, "essa pia ta meio cheia de pelo", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(1072,136,"um cactu, cacto, caquito, não sei\nmas eu nao vou afiar minhas unhas nisso", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(544,221, "ei um estacionamento,\nseria ate util se existisse carro", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(695,348, "que laguinho lindo, da quase vontade de nadar\n\nquase...", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(580,452, "CARAMBA EU ACHEI\n nada... Uau", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(465,672, "uh que predio bonito, pena que ta fechado", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(519,963, "Que beco escuro,\nainda bem que meu nome não é Wayne", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(344,840, "UMA PEIXARIA MEUDEUS QUE DIA DE SORT...\nTA FECHADA TAMBE QUE ODIO", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(281,539, "Se isso aqui fosse videogame\naposto que teria um item aqui..", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(258,130, "CARAMBA QUE CAIXA DE AREIA ENORME", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(376,117, "Essa porta realmente chama a atencao ne", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            NPC(477,127, "castelinho de areia,\ne se... eu derrubar ele", 208, 0, 16, 16, num_quadros=3, intervalo_animacao=0.1),
+            # Boss
+            NPC(1272, 989, "EU SOU O TUTUI O LARGATAO\nVOLTE QUANDO DERROTAR\nTODOS OS MEUS CASCAS DE BALA", 128, 192, 16, 16, num_quadros=3, intervalo_animacao=0.1),
             ]
 
         self.inimigo = [
@@ -109,6 +123,8 @@ class Mapa:
                         Inimigo(1496, 507, 14, 6, 128, 208, "Ain Tutui malvadao"),
                         Inimigo(1496, 767, 14, 6, 128, 208, "voce vai morrer! Denovo!"),
                         ]
+        
+        self.boss = [Inimigo(1272, 989, 30, 6, 128, 192, "Voce acabou de arranjar uma briga\nque nao pode vencer, miado fraco!")]
 
         self.jogador = jogador
 
@@ -125,8 +141,9 @@ class Mapa:
         # Verifica passagem para cada porta
         for porta in self.portas:
             porta.verificar_porta(self.jogador)
-
-        print(f"Posição do jogador: ({self.jogador.x}, {self.jogador.y})")
+            
+############ DEBUG DA POSIÇAO DO JOGADOR
+        #print(f"Posição do jogador: ({self.jogador.x}, {self.jogador.y})")
 
         for inimigo in self.inimigo:
             if inimigo.vida > 0 and not inimigo.time > 0:
@@ -136,13 +153,17 @@ class Mapa:
                     pyxel.stop()  # Para a música de fundo
                     Combate(self.jogador, inimigo, self)
 
-        todos_sem_vida = all(inimigo.vida <= 0 for inimigo in self.inimigo)
+        for boss in self.boss:
+            if boss.vida > 0 and not boss.time > 0:
+                if (self.jogador.x == boss.x and self.jogador.y in range(boss.y - 40, boss.y + 40)) or \
+                        (self.jogador.y == boss.y and self.jogador.x in range(boss.x - 40, boss.x + 40)):
+                    self.combate_em_andamento = True  # Inicia o combate
+                    pyxel.stop()  # Para a música de fundo
+                    Combate(self.jogador, boss, self, u = 64, v = 0, w = 64, h = 64)
 
-        if todos_sem_vida and self.boss_fight:
-            self.npcs.pop()
-            self.inimigo.append(Inimigo(1272, 989, 30, 6, 128, 192, "Voce acabou de arranjar uma briga\nque nao pode vencer, miado fraco!"))
-            self.boss_fight = False
-        elif todos_sem_vida and not self.boss_fight and self.jogador.x in range(376 - 20, 376 + 20) and self.jogador.y in range(80, 80 + 20):
+        self.boss_fight = all(boss.vida <= 0 for boss in self.boss)
+
+        if self.boss_fight and self.jogador.x in range(376 - 20, 376 + 20) and self.jogador.y in range(80, 80 + 20):
             Final("ganhou", self.jogador)
         elif self.jogador.vida <= 0:
             Final("morreu", self.jogador)
@@ -151,6 +172,10 @@ class Mapa:
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 2000, 2000)  # mapa tem que ser enorme pra caber as casas do lado de fora do mapa
         self.jogador.desenhar()
+        pyxel.text(1140,150,"WASD para se mover",7)
+        pyxel.text(1140,160,"E para Interagir",7)
+        pyxel.text(1140,170,"Espaco decidir acao",7)
+        pyxel.text(1140,180,"E lembre-se: \n nao durma demais",7)
 
         # Desenha cada NPC
         for npc in self.npcs:

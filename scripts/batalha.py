@@ -2,7 +2,7 @@ import pyxel
 import random
 
 class Combate:
-    def __init__(self, jogador, inimigo, mundo):
+    def __init__(self, jogador, inimigo, mundo, u = 0, v = 0, w = 64, h = 64):
         self.jogador = jogador
         self.inimigo = inimigo
         self.mundo = mundo
@@ -14,13 +14,18 @@ class Combate:
         self.opcoes = ["Atacar", "Descansar", "Fugir"]
         self.last_turn_heal = False
         
+        self.u = u
+        self.v = v
+        self.w = w
+        self.h = h
+
         pyxel.playm(0, 1, True)  # Toca a música de combate
 
         ############ DEBUG DO COMBATE ############
-        print("dano ", self.jogador.dano)
-        print("vida ", self.jogador.vida)
-        print("inimigo dano ", self.inimigo.dano)
-        print("inimigo vida ", self.inimigo.vida)
+# "        print("dano ", self.jogador.dano)
+#         print("vida ", self.jogador.vida)
+#         print("inimigo dano ", self.inimigo.dano)
+#         print("inimigo vida ", self.inimigo.vida)"
 
         ############ TEXTOS DO COMBATE ############
         self.TextosDeAtaque = self.inimigo.texto
@@ -53,6 +58,7 @@ class Combate:
             self.last_turn_heal = True
         elif self.opcoes[self.opcaoSelecionada] == "Fugir":
             pyxel.text(10 + self.jogador.xCameraOffset, 15 + self.jogador.yCameraOffset, "Você fugiu do combate!", 7)
+            pyxel.stop()
             self.jogador.estado = 'parado'
             self.inimigo.time = 100
             self.last_turn_heal = False
@@ -113,7 +119,7 @@ class Combate:
             pyxel.cls(1)
             pyxel.blt(0 + self.jogador.xCameraOffset, -64 + self.jogador.yCameraOffset, 1, 0, 0, 192, 192)
             pyxel.rect(0 + self.jogador.xCameraOffset, 0 + self.jogador.yCameraOffset, 160, 48, 0)
-            pyxel.blt(50 + self.jogador.xCameraOffset, 50 + self.jogador.yCameraOffset, 1, 0, 0, 64, 64, 0)  # sprite do inimigo
+            pyxel.blt(50 + self.jogador.xCameraOffset, 50 + self.jogador.yCameraOffset, 1, self.u, self.v, self.w, self.h, 0)  # sprite do inimigo
             pyxel.rect(0 + self.jogador.xCameraOffset, 100 + self.jogador.yCameraOffset, 160, 48, 0)
             pyxel.text(10 + self.jogador.xCameraOffset, 5 + self.jogador.yCameraOffset, f"Rodada: {self.rodada}", 7)
 
