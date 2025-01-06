@@ -32,8 +32,7 @@ Certifique-se de que o Python 3.8 ou superior está instalado em seu sistema. Ca
 ### 2. Instalar a biblioteca Pyxel
 O jogo foi desenvolvido usando a biblioteca Pyxel. Para instalá-la, execute o seguinte comando no terminal:
 
-bash
-pip install pyxel
+```pip install pyxel```
 
 
 ### 3. Clonar o repositório
